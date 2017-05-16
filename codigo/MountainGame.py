@@ -148,16 +148,35 @@ def moveCarroPrincipal(tecla):
         global petrol    
         #marco.after(500,empezar)
         x=10
+        print(marco.find_all())        
         while True:
             #mueve el mapa 10 pixeles esto dara la sensacion de moverce hacia atras
             marco.move(mapaPrincipal,0,10)
+            #print(marco.bbox(jeep))
+            #print(marco.bbox(petrol))
             #colisiones del mapa
             #linea recta
-    
-            if marco.coords(mapaPrincipal)[1] < -26450:
-                if marco.coords(mapaPrincipal)[1] == -28190:
-                    marco.move(petrol,num1,x-x)
-                # colision derecha carro
+            box = marco.bbox(petrol)
+            print(box)
+            #print(marco.bbox(petrol)[0])
+            #print(marco.find_overlapping(marco.bbox(petrol)[0],marco.bbox(petrol)[1],marco.bbox(petrol)[2],marco.bbox(petrol)[3])))
+            if marco.coords(mapaPrincipal)[1] == -28190 :
+                print("hey")
+                marco.move(petrol,num1,0)
+
+            elif marco.coords(jeep)[0]==marco.coords(petrol)[0] or marco.coords(jeep)[1]==marco.coords(petrol)[1]:
+                print("djdjdi")
+                marco.delete(jeep)
+            #elif marco.find_overlapping(marco.bbox(petrol)[0],marco.bbox(petrol)[1],marco.bbox(petrol)[2],marco.bbox(petrol)[3])==(1,2,)
+            #elif marco.find_closest(marco.coords(petrol)[0],marco.coords(petrol)[1],halo=5)==(2,):
+             #   print("fuck")
+              #  marco.delete(jeep)
+               # break
+           
+            elif marco.coords(mapaPrincipal)[1] == -26450:
+                marco.move(petrol,num2,0)
+                
+            elif marco.coords(mapaPrincipal)[1] < -26450:
                 
                 if marco.coords(jeep)[0] > 440:
                     #si se choca va a aparecer una imagen de una explosion
@@ -166,25 +185,12 @@ def moveCarroPrincipal(tecla):
                     marco.delete(jeep)
                     break
                 
-                #colision del aceite 510
-                #le sumo 26 porque siempre hay esa diferencia de ubicacion en el eje x
-                if marco.coords(jeep)[0]==marco.coords(petrol)[0] and marco.coords(petrol)[1]==490:
-                    print("gayy")
-                    marco.delete(jeep)
-                    break
-                #marco.delete(nombreitem)
-                #colision eje izquiers
                 elif marco.coords(jeep)[0] < 204.0:
                     ink=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=tinta, anchor=NW)
                     marco.delete(jeep)
                     break
             # colision para la primer curva
             elif marco.coords(mapaPrincipal)[1] >= -26450 and marco.coords(mapaPrincipal)[1] < -25950 :
-                if marco.coords(mapaPrincipal)[1] == -26450:
-                    x=10
-                    #x siempre va a ser el valor en el que va a ir aumentando lo que se esta moviendo la mancha de aceite
-                    #le resto para que vuelva a la posicion 0 y aparezca arriba en la pantalla
-                    marco.move(petrol,num2,x-1740)
                 if marco.coords(jeep)[0] < valor: 
                     ink=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=tinta, anchor=NW)
                     marco.delete(jeep)
@@ -200,9 +206,9 @@ def moveCarroPrincipal(tecla):
                     valor4=valor4+3
             # tercera colision linea recta
             elif marco.coords(mapaPrincipal)[1] >= -25950 and marco.coords(mapaPrincipal)[1] < -17840:
-                if marco.coords(mapaPrincipal)[1] == -19600:
-                    x=10
-                    marco.move(petrol,num3,x-6870)
+                #if marco.coords(mapaPrincipal)[1] == -19600:
+                    #x=10
+                    #marco.move(petrol,num3,x-6870)
                 if marco.coords(jeep)[0] > 614: 
                     ink=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=tinta, anchor=NW)
                     marco.delete(jeep)
@@ -242,12 +248,13 @@ def moveCarroPrincipal(tecla):
                     marco.delete(jeep)
                     break
             marco.move(petrol,0,x)
-            print(marco.coords(jeep)[0],marco.coords(mapaPrincipal)[1], marco.coords(petrol)[0],marco.coords(petrol)[1],marco.coords(jeep)[1],num1)  
+            #print(marco.coords(jeep)[0],marco.coords(mapaPrincipal)[1], marco.coords(petrol)[0],marco.coords(petrol)[1],marco.coords(jeep)[1],num1)  
             
             # se va cargando el movimiento
             game.update()
             # cada cuantos segundos se va a mover la pantalla
             time.sleep(0.015)
+       
            
 # condicionales para mover el carro en sentido del eje y adelante atras
 
@@ -285,12 +292,13 @@ def empezar():
     raiz.withdraw()
     # nueva ventana
     game.resizable(width=False, height=False)
+
     global num1
     num1=random.randrange(220,410,3)
     #global num11
     #num11=random.randrange(-220,-330,3)
     global num2
-    num2=random.randrange(50,380,10)
+    num2=random.randrange(380,610,10)
     global num3
     num3=random.randrange(50,380,10)          
     #global num4 puedo usarlo para los carros
@@ -302,7 +310,7 @@ def empezar():
     petrol = marco.create_image(0, 0, image=aceite, anchor=NW)   
     # tenemos que darle una variable para los eventos de las teclas
     global jeep
-    jeep = marco.create_image(330, 480, image=carroPrincipal, anchor=NW)
+    jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
     miniRoad = marco.create_image(0, 0, image=miniCarretera, anchor=NW)
     miniCuper = marco.create_image(0, 525, image=carroMini, anchor=NW) 
     #aceite = PhotoImage(file="aceite.png")
@@ -327,7 +335,7 @@ def nivel2():
     segundoMapa = marco.create_image(-2,-28200, image=mapaDesierto, anchor=NW)
     # tenemos que darle una variable para los eventos de las teclas
     global jeep
-    jeep = marco.create_image(355, 480, image=carroPrincipal, anchor=NW)
+    jeep = marco.create_image(330, 480, image=carroPrincipal, anchor=NW)
     miniRoad = marco.create_image(0, 0, image=miniCarretera, anchor=NW)
     miniCuper = marco.create_image(0, 525, image=carroMini, anchor=NW)
     #teclas y colisiones del segundo mapa 
