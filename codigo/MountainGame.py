@@ -158,11 +158,11 @@ def moveCarroPrincipal(tecla):
                 print("watch out")
                 marco.delete(jeep)
     
-            marco.after(10,marco.move(mapaPrincipal,0,10))
+            marco.after(15,marco.move(mapaPrincipal,0,10))
 
             #print(marco.find_closest(marco.coords(petrol)[0],marco.coords(petrol)[1]))
           
-            
+            print(marco.coords(enemyState)[0])
 
             # primera aparicion mancha
             if marco.coords(mapaPrincipal)[1] == -28190:
@@ -171,58 +171,75 @@ def moveCarroPrincipal(tecla):
             #CARRO APARICION enemigo 1 
             elif marco.coords(mapaPrincipal)[1] == -27190:
                 marco.move(enemyState,numEnemy1,y-marco.coords(enemyState)[1])
-            #aparicion enemigo 2 
+            #aparicion enemigo 2
+                
             elif marco.coords(mapaPrincipal)[1] == -27490:
                 marco.move(enemyState2,numEnemy2,z-marco.coords(enemyState)[1])
 
             #segunda aparicion enemigo1
             elif marco.coords(mapaPrincipal)[1] == -24490:
-                if marco.coords(mapaPrincipal)[0] > 500:
-                    marco.move(enemyState,-numEnemy1,z-marco.coords(enemyState)[1])
+                if marco.coords(enemyState)[0] > 500:
+                    marco.move(enemyState,-numEnemy1_2,z-marco.coords(enemyState)[1])
                 else:
-                    marco.move(enemyState,numEnemy1,z-marco.coords(enemyState)[1])
+                    marco.move(enemyState,numEnemy1_2,z-marco.coords(enemyState)[1])
 
             #segunda aparicion enemigo 2
 
             elif marco.coords(mapaPrincipal)[1] == -24840:
-                if marco.coords(mapaPrincipal)[0] > 500:
+                if marco.coords(enemyState2)[0] > 500:
                     marco.move(enemyState2,-numEnemy2,z-marco.coords(enemyState)[1])
                 else:
                     marco.move(enemyState2,numEnemy2,z-marco.coords(enemyState)[1])
 
             #tercera aparicion enemigo 1
             elif marco.coords(mapaPrincipal)[1] == -20340:
-                if marco.coords(mapaPrincipal)[0] > 500:
+                if marco.coords(enemyState)[0] > 500:
                     marco.move(enemyState,-numEnemy1,z-marco.coords(enemyState)[1])
                 else:
                     marco.move(enemyState,numEnemy1,z-marco.coords(enemyState)[1])
             
          #segunda aparicion mancha
-            elif marco.coords(mapaPrincipal)[1] == -26450:
-                if marco.coords(mapaPrincipal)[0] > 500:
+            elif marco.coords(mapaPrincipal)[1] == -25900:
+                if marco.coords(petrol)[0] > 500:
                     marco.move(petrol,-num2,x-1750)
                 else:
                     marco.move(petrol,num2,x-1750)
                 
         #tercera aparicion mancha
             elif marco.coords(mapaPrincipal)[1] == -20000:
-                if marco.coords(mapaPrincipal)[0] > 500:
+                if marco.coords(petrol)[0] > 500:
                     marco.move(petrol,-num3,x-marco.coords(petrol)[1])
                 else:
                     marco.move(petrol,num3,x-marco.coords(petrol)[1])
+
+        #cuarta aparicicon mancha de aceite
+            elif marco.coords(mapaPrincipal)[1] == -15000:
+                if marco.coords(petrol)[0] > 500:
+                    marco.move(petrol,-num4,x-marco.coords(petrol)[1])
+                else:
+                    marco.move(petrol,num4,x-marco.coords(petrol)[1])
                     
             #colision para la mancha de aceite
             
+
+
 
             #primera colision
             elif marco.coords(mapaPrincipal)[1] < -26450:
                 
                 if marco.coords(jeep)[0] > 440:
                     #si se choca va a aparecer una imagen de una explosion
-                    ink=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=tinta, anchor=NW)
+                    for a in range (len(explosiones)):
+                        #explosiones
+                        display=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=explosiones[a], anchor=NW)
+                        
+                        if a==6:
+                            marco.delete(display)
+                            marco.move(jeep,-200,0)
+                            break
+                        game.update()
+                        time.sleep(0.2)   
                     # si sucede el choque lo que sucede con el break es que el mapa se va a detener
-                    marco.delete(jeep)
-                    break
                 
                 elif marco.coords(jeep)[0] < 204.0:
                     ink=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=tinta, anchor=NW)
@@ -323,6 +340,16 @@ enemigoFollow2= PhotoImage(file="enemyFollow_2.png")
 enemigoMove= PhotoImage(file="enemyMove.png")
 enemigoMove2= PhotoImage(file="enemyMove_2.png")
 
+exp1 = PhotoImage(file="explosion1.png")
+exp2 = PhotoImage(file="explosion2.png")
+exp3 = PhotoImage(file="explosion3.png")
+exp4 = PhotoImage(file="explosion4.png")
+exp5 = PhotoImage(file="explosion5.png")
+exp6 = PhotoImage(file="explosion6.png")
+exp7 = PhotoImage(file="explosion7.png")
+
+explosiones=[exp1,exp2,exp3,exp4,exp5,exp6,exp7]
+
 
   
 # funcion para iniciar el juego el mapa 1
@@ -340,9 +367,11 @@ def empezar():
     num1=random.randrange(220,410,3)
     # le doy un rango bajo ya que no quiero que se me aumente mas sino que me disminuya para que quede dentro de los limites
     global num2
-    num2=random.randrange(200,300,3)
+    num2=random.randrange(50,150,3)
     global num3
     num3=random.randrange(10,60,3)
+    global num4
+    num3=random.randrange(200,300,3)
 
 
     global mapaPrincipal 
@@ -361,6 +390,8 @@ def empezar():
     #aparicion1
     global numEnemy1
     numEnemy1=random.randrange(260,410,10)
+    global numEnemy1_2
+    numEnemy1_2=random.randrange(100,250,3)
     
     global enemyState2
     enemyState2 = marco.create_image(-35, 0, image=enemigoState2, anchor=NW)
