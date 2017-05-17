@@ -144,6 +144,7 @@ def moveCarroPrincipal(tecla):
         #marco.after(500,empezar)
         x=10
         y=10
+        z=10
         print(marco.find_all())
         
         #print(box)
@@ -157,9 +158,8 @@ def moveCarroPrincipal(tecla):
                 print("watch out")
                 marco.delete(jeep)
     
-            marco.after(5,marco.move(mapaPrincipal,0,10))
+            marco.after(10,marco.move(mapaPrincipal,0,10))
 
-            print(marco.coords(enemyState)[0])
             #print(marco.find_closest(marco.coords(petrol)[0],marco.coords(petrol)[1]))
           
             
@@ -168,10 +168,34 @@ def moveCarroPrincipal(tecla):
             if marco.coords(mapaPrincipal)[1] == -28190:
                 marco.move(petrol,num1,0)
 
-            #CARRO APARICION
+            #CARRO APARICION enemigo 1 
             elif marco.coords(mapaPrincipal)[1] == -27190:
-                print("hello")
                 marco.move(enemyState,numEnemy1,y-marco.coords(enemyState)[1])
+            #aparicion enemigo 2 
+            elif marco.coords(mapaPrincipal)[1] == -27490:
+                marco.move(enemyState2,numEnemy2,z-marco.coords(enemyState)[1])
+
+            #segunda aparicion enemigo1
+            elif marco.coords(mapaPrincipal)[1] == -24490:
+                if marco.coords(mapaPrincipal)[0] > 500:
+                    marco.move(enemyState,-numEnemy1,z-marco.coords(enemyState)[1])
+                else:
+                    marco.move(enemyState,numEnemy1,z-marco.coords(enemyState)[1])
+
+            #segunda aparicion enemigo 2
+
+            elif marco.coords(mapaPrincipal)[1] == -24840:
+                if marco.coords(mapaPrincipal)[0] > 500:
+                    marco.move(enemyState2,-numEnemy2,z-marco.coords(enemyState)[1])
+                else:
+                    marco.move(enemyState2,numEnemy2,z-marco.coords(enemyState)[1])
+
+            #tercera aparicion enemigo 1
+            elif marco.coords(mapaPrincipal)[1] == -20340:
+                if marco.coords(mapaPrincipal)[0] > 500:
+                    marco.move(enemyState,-numEnemy1,z-marco.coords(enemyState)[1])
+                else:
+                    marco.move(enemyState,numEnemy1,z-marco.coords(enemyState)[1])
             
          #segunda aparicion mancha
             elif marco.coords(mapaPrincipal)[1] == -26450:
@@ -264,6 +288,7 @@ def moveCarroPrincipal(tecla):
                     break
             marco.move(petrol,0,x)
             marco.move(enemyState,0,y)
+            marco.move(enemyState2,0,z)
             #print(marco.coords(jeep)[0],marco.coords(mapaPrincipal)[1], marco.coords(petrol)[0],marco.coords(petrol)[1],marco.coords(jeep)[1],num1)  
             #time.sleep(0.015)
             # se va cargando el movimiento
@@ -338,11 +363,11 @@ def empezar():
     numEnemy1=random.randrange(260,410,10)
     
     global enemyState2
-    enemyState2 = marco.create_image(0, 0, image=enemigoState2, anchor=NW)
+    enemyState2 = marco.create_image(-35, 0, image=enemigoState2, anchor=NW)
     #NUMEROS RANDOMS PARA LOS ENEMIGOS
     #aparicion1
     global numEnemy2
-    numEnemy2=random.randrange(220,410,8)
+    numEnemy2=random.randrange(260,410,8)
 
     #ENMIGOS QUE ME SIGUEN
     global enemyFoll
