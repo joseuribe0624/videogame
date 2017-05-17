@@ -143,7 +143,7 @@ def moveCarroPrincipal(tecla):
         global petrol    
         #marco.after(500,empezar)
         x=10
-  
+        y=10
         print(marco.find_all())
         
         #print(box)
@@ -156,15 +156,22 @@ def moveCarroPrincipal(tecla):
             if 2 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
                 print("watch out")
                 marco.delete(jeep)
-            print(marco.find_overlapping(box[0],box[1],box[2],box[3]))
+    
             marco.after(5,marco.move(mapaPrincipal,0,10))
+
+            print(marco.coords(enemyState)[0])
             #print(marco.find_closest(marco.coords(petrol)[0],marco.coords(petrol)[1]))
           
             
 
             # primera aparicion mancha
-            if marco.coords(mapaPrincipal)[1] == -28190:   
+            if marco.coords(mapaPrincipal)[1] == -28190:
                 marco.move(petrol,num1,0)
+
+            #CARRO APARICION
+            elif marco.coords(mapaPrincipal)[1] == -27190:
+                print("hello")
+                marco.move(enemyState,num2,x)
             
          #segunda aparicion mancha
             elif marco.coords(mapaPrincipal)[1] == -26450:
@@ -256,6 +263,7 @@ def moveCarroPrincipal(tecla):
                     marco.delete(jeep)
                     break
             marco.move(petrol,0,x)
+            marco.move(enemyState,0,y)
             #print(marco.coords(jeep)[0],marco.coords(mapaPrincipal)[1], marco.coords(petrol)[0],marco.coords(petrol)[1],marco.coords(jeep)[1],num1)  
             #time.sleep(0.015)
             # se va cargando el movimiento
@@ -278,17 +286,18 @@ aceite=PhotoImage(file="aceite.png")
 #mapa para el mundo 2 
 mapaDesierto = PhotoImage(file="mapWorld2.png ")
 
+#ENEMIGOS
+enemigoState= PhotoImage(file="enemy1.png")
+enemigoState2= PhotoImage(file="enemy1_2.png")
 
-#while True:
- #   marco.move(ink,ejex,ejey)
-  #  pos=marco.coords(ink)
-   # print(pos)
-    #if pos[1]>700:
-     #   nume=random.randrange(450,1000,10)
-      #  ink = marco.create_image(0, 0, image=tinta, anchor=NW)
-       # marco.move(ink,nume,0)
-       # ejex=0
-       # ejey=10
+#ENEMIGOS  QUE SIGUEN
+enemigoFollow= PhotoImage(file="enemyFollow.png")
+enemigoFollow2= PhotoImage(file="enemyFollow_2.png")
+
+#ENMIGOS QUE SE MUEVEN
+enemigoMove= PhotoImage(file="enemyMove.png")
+enemigoMove2= PhotoImage(file="enemyMove_2.png")
+
 
   
 # funcion para iniciar el juego el mapa 1
@@ -300,15 +309,17 @@ def empezar():
     raiz.withdraw()
     # nueva ventana
     game.resizable(width=False, height=False)
+
+    #RANDOM PARA EL ACEITE
     global num1
     num1=random.randrange(220,410,3)
     # le doy un rango bajo ya que no quiero que se me aumente mas sino que me disminuya para que quede dentro de los limites
     global num2
     num2=random.randrange(200,300,3)
     global num3
-    num3=random.randrange(10,60,3)          
-    #global num4 puedo usarlo para los carros
-    #num4=random.randrange(210,438,10)
+    num3=random.randrange(10,60,3)
+
+
     global mapaPrincipal 
     mapaPrincipal = marco.create_image(-2,-28200, image=mapa, anchor=NW)
     global petrol
@@ -317,6 +328,52 @@ def empezar():
     global jeep
     jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
     miniRoad = marco.create_image(0, 0, image=miniCarretera, anchor=NW)
+
+    #IMAGENES PARA LOS ENEMIGOS 
+    global enemyState
+    enemyState= marco.create_image(0, 0, image=enemigoState, anchor=NW)
+    #NUMEROS RANDOMS PARA LOS ENEMIGOS
+    #aparicion1
+    global numEnemy1
+    numEnemy1=random.randrange(220,410,10)
+    
+    global enemyState2
+    enemyState2 = marco.create_image(0, 0, image=enemigoState2, anchor=NW)
+    #NUMEROS RANDOMS PARA LOS ENEMIGOS
+    #aparicion1
+    global numEnemy2
+    numEnemy2=random.randrange(220,410,8)
+
+    #ENMIGOS QUE ME SIGUEN
+    global enemyFoll
+    enemyFoll= marco.create_image(0, 0, image=enemigoFollow, anchor=NW)
+    #aparicion1
+    global numFoll
+    numFoll=random.randrange(220,410,10)
+    
+    global enemyFoll2
+    enemyFoll2= marco.create_image(0, 0, image=enemigoFollow2, anchor=NW)
+    #aparicion1
+    global numFoll2
+    numFoll2=random.randrange(220,410,1)
+
+    #ENEMIGOS QUE SE MUEVEN
+    global enemyMov
+    enemyMove= marco.create_image(0, 0, image=enemigoMove, anchor=NW)
+    #aparicion 1
+    global numMove
+    numMove=random.randrange(220,410,12)
+    
+    global enemyMov2
+    enemyMove2= marco.create_image(0, 0, image=enemigoMove2, anchor=NW)
+    #aparicion1
+    global numMove2
+    numMove2=random.randrange(220,410,11)
+
+
+    
+
+    
     #miniCuper = marco.create_image(0, 525, image=carroMini, anchor=NW) 
     #aceite = PhotoImage(file="aceite.png")
     #bind para asignar que move es con una tecla
