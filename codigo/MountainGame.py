@@ -84,11 +84,6 @@ def moveCarroSegundoMap(key):
         valor4=444
         #for x in range(0, 9000):
         while True:
-            #if marco.coords(mapaPrincipal)[1] < -26450:
-             #   num1=random.randrange(210,438,20)
-              #  petrol = marco.create_image(num1, 0, image=tinta, anchor=NW)
-            # para mover la mancha de aceite con el mapa
-            #marco.move(petrol,0,10)
             #mueve el mapa 10 pixeles esto dara la sensacion de moverce hacia atras
             marco.move(segundoMapa,0,10)
             #colisiones del mapa2
@@ -148,34 +143,31 @@ def moveCarroPrincipal(tecla):
         global petrol    
         #marco.after(500,empezar)
         x=10
-        print(marco.find_all())        
+  
+        print(marco.find_all())
+        box2 = marco.bbox(petrol)
+        box =marco.bbox(jeep)
+        print(box)
+        
         while True:
             #mueve el mapa 10 pixeles esto dara la sensacion de moverce hacia atras
             marco.move(mapaPrincipal,0,10)
-            #print(marco.bbox(jeep))
-            #print(marco.bbox(petrol))
             #colisiones del mapa
             #linea recta
-            box = marco.bbox(petrol)
-            print(box)
+            print(marco.find_overlapping(box[0],box[1],box[2],box[3]))
             #print(marco.bbox(petrol)[0])
             #print(marco.find_overlapping(marco.bbox(petrol)[0],marco.bbox(petrol)[1],marco.bbox(petrol)[2],marco.bbox(petrol)[3])))
-            if marco.coords(mapaPrincipal)[1] == -28190 :
+            if marco.coords(mapaPrincipal)[1] == -28190:
                 print("hey")
                 marco.move(petrol,num1,0)
 
-            elif marco.coords(jeep)[0]==marco.coords(petrol)[0] or marco.coords(jeep)[1]==marco.coords(petrol)[1]:
-                print("djdjdi")
-                marco.delete(jeep)
-            #elif marco.find_overlapping(marco.bbox(petrol)[0],marco.bbox(petrol)[1],marco.bbox(petrol)[2],marco.bbox(petrol)[3])==(1,2,)
-            #elif marco.find_closest(marco.coords(petrol)[0],marco.coords(petrol)[1],halo=5)==(2,):
-             #   print("fuck")
-              #  marco.delete(jeep)
-               # break
-           
             elif marco.coords(mapaPrincipal)[1] == -26450:
                 marco.move(petrol,num2,0)
-                
+    
+            elif 2 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
+                marco.delete(jeep)
+
+            #primera colision
             elif marco.coords(mapaPrincipal)[1] < -26450:
                 
                 if marco.coords(jeep)[0] > 440:
@@ -312,7 +304,7 @@ def empezar():
     global jeep
     jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
     miniRoad = marco.create_image(0, 0, image=miniCarretera, anchor=NW)
-    miniCuper = marco.create_image(0, 525, image=carroMini, anchor=NW) 
+    #miniCuper = marco.create_image(0, 525, image=carroMini, anchor=NW) 
     #aceite = PhotoImage(file="aceite.png")
     #bind para asignar que move es con una tecla
     marco.bind("<KeyPress>", moveCarroPrincipal)

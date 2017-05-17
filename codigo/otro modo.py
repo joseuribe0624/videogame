@@ -148,23 +148,50 @@ def moveCarroPrincipal(tecla):
         global petrol    
         #marco.after(500,empezar)
         x=10
-        print(marco.find_all())        
+        dy=0
+    # diferencia en los ejes
+        dx=0
         while True:
             #mueve el mapa 10 pixeles esto dara la sensacion de moverce hacia atras
             marco.move(mapaPrincipal,0,10)
-            print(marco.bbox(jeep))
-            print(marco.bbox(petrol))
+            #print(marco.bbox(jeep))
+            #print(marco.bbox(petrol))
             #colisiones del mapa
             #linea recta
             #box = marco.bbox(petrol)
             #print(marco.find_overlapping(box))
+            
+                
             if marco.coords(mapaPrincipal)[1] == -28190 :
                 print("hey")
+                y=num1
                 marco.move(petrol,num1,0)
-           
-            elif marco.coords(mapaPrincipal)[1] == -26450:
-                marco.move(petrol,num2,0)
                 
+            elif dy<=30 and dx<=20 :
+                print("be careful")
+                marco.move(jeep,+3,0)
+                
+
+     
+            elif marco.coords(mapaPrincipal)[1] == -26450:
+                if marco.coords(mapaPrincipal)[0] > 500:
+                    marco.move(petrol,-num2,x-1750)
+                else:
+                    marco.move(petrol,num2,x-1750)
+                
+    
+            elif dy<=20 and dx<=20:
+                print("be careful")
+                marco.move(jeep,x+3,0)
+
+            elif marco.coords(mapaPrincipal)[1] == -18000:
+                if marco.coords(mapaPrincipal)[0] > 500:
+                    marco.move(petrol,-num3,x-marco.coords(petrol)[1])
+                else:
+                    marco.move(petrol,num3,x-marco.coords(petrol)[1])
+
+                
+            #colision linea recta    
             elif marco.coords(mapaPrincipal)[1] < -26450:
                 
                 if marco.coords(jeep)[0] > 440:
@@ -230,14 +257,25 @@ def moveCarroPrincipal(tecla):
                     # si sucede el choque lo que sucede con el break es que el mapa se va a detener
                     marco.delete(jeep)
                     break
-                #marco.delete(nombreitem)
+
                 #colision eje izquiers
                 elif marco.coords(jeep)[0] < 204.0:
                     ink=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=tinta, anchor=NW)
                     marco.delete(jeep)
                     break
+
+                
+            dy=marco.coords(petrol)[1]-marco.coords(jeep)[1]
+            
+            if marco.coords(petrol)[0] < marco.coords(jeep)[0]:
+                dx= marco.coords(jeep)[0]-marco.coords(petrol)[0]
+                
+            elif marco.coords(petrol)[0] > marco.coords(jeep)[0]:
+                dx= marco.coords(petrol)[0]-marco.coords(jeep)[0]
+
+                
             marco.move(petrol,0,x)
-            #print(marco.coords(jeep)[0],marco.coords(mapaPrincipal)[1], marco.coords(petrol)[0],marco.coords(petrol)[1],marco.coords(jeep)[1],num1)  
+            print(marco.coords(jeep)[0],marco.coords(mapaPrincipal)[1],marco.coords(petrol)[0],marco.coords(petrol),num2,num1)  
             
             # se va cargando el movimiento
             game.update()
@@ -284,12 +322,11 @@ def empezar():
 
     global num1
     num1=random.randrange(220,410,3)
-    #global num11
-    #num11=random.randrange(-220,-330,3)
+    # le doy un rango bajo ya que no quiero que se me aumente mas sino que me disminuya para que quede dentro de los limites
     global num2
-    num2=random.randrange(380,610,10)
+    num2=random.randrange(50,100,3)
     global num3
-    num3=random.randrange(50,380,10)          
+    num3=random.randrange(50,100,3)          
     #global num4 puedo usarlo para los carros
     #num4=random.randrange(210,438,10)
     # canvas
