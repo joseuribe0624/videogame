@@ -145,27 +145,43 @@ def moveCarroPrincipal(tecla):
         x=10
   
         print(marco.find_all())
-        box2 = marco.bbox(petrol)
-        box =marco.bbox(jeep)
-        print(box)
         
+        #print(box)
         while True:
+            box2 = marco.bbox(petrol)
+            box =marco.bbox(jeep)
+         #   print(marco.coords(petrol)[0])
             #mueve el mapa 10 pixeles esto dara la sensacion de moverce hacia atras
-            marco.move(mapaPrincipal,0,10)
-            #colisiones del mapa
-            #linea recta
-            print(marco.find_overlapping(box[0],box[1],box[2],box[3]))
-            #print(marco.bbox(petrol)[0])
-            #print(marco.find_overlapping(marco.bbox(petrol)[0],marco.bbox(petrol)[1],marco.bbox(petrol)[2],marco.bbox(petrol)[3])))
-            if marco.coords(mapaPrincipal)[1] == -28190:
-                print("hey")
-                marco.move(petrol,num1,0)
-
-            elif marco.coords(mapaPrincipal)[1] == -26450:
-                marco.move(petrol,num2,0)
-    
-            elif 2 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
+            #marco.move(mapaPrincipal,0,10)
+            if 2 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
+                print("watch out")
                 marco.delete(jeep)
+            print(marco.find_overlapping(box[0],box[1],box[2],box[3]))
+            marco.after(5,marco.move(mapaPrincipal,0,10))
+            #print(marco.find_closest(marco.coords(petrol)[0],marco.coords(petrol)[1]))
+          
+            
+
+            # primera aparicion mancha
+            if marco.coords(mapaPrincipal)[1] == -28190:   
+                marco.move(petrol,num1,0)
+            
+         #segunda aparicion mancha
+            elif marco.coords(mapaPrincipal)[1] == -26450:
+                if marco.coords(mapaPrincipal)[0] > 500:
+                    marco.move(petrol,-num2,x-1750)
+                else:
+                    marco.move(petrol,num2,x-1750)
+                
+        #tercera aparicion mancha
+            elif marco.coords(mapaPrincipal)[1] == -20000:
+                if marco.coords(mapaPrincipal)[0] > 500:
+                    marco.move(petrol,-num3,x-marco.coords(petrol)[1])
+                else:
+                    marco.move(petrol,num3,x-marco.coords(petrol)[1])
+                    
+            #colision para la mancha de aceite
+            
 
             #primera colision
             elif marco.coords(mapaPrincipal)[1] < -26450:
@@ -241,11 +257,11 @@ def moveCarroPrincipal(tecla):
                     break
             marco.move(petrol,0,x)
             #print(marco.coords(jeep)[0],marco.coords(mapaPrincipal)[1], marco.coords(petrol)[0],marco.coords(petrol)[1],marco.coords(jeep)[1],num1)  
-            
+            #time.sleep(0.015)
             # se va cargando el movimiento
             game.update()
             # cada cuantos segundos se va a mover la pantalla
-            time.sleep(0.015)
+            #time.sleep(0.02)
        
            
 # condicionales para mover el carro en sentido del eje y adelante atras
@@ -284,18 +300,15 @@ def empezar():
     raiz.withdraw()
     # nueva ventana
     game.resizable(width=False, height=False)
-
     global num1
     num1=random.randrange(220,410,3)
-    #global num11
-    #num11=random.randrange(-220,-330,3)
+    # le doy un rango bajo ya que no quiero que se me aumente mas sino que me disminuya para que quede dentro de los limites
     global num2
-    num2=random.randrange(380,610,10)
+    num2=random.randrange(200,300,3)
     global num3
-    num3=random.randrange(50,380,10)          
+    num3=random.randrange(10,60,3)          
     #global num4 puedo usarlo para los carros
     #num4=random.randrange(210,438,10)
-    # canvas
     global mapaPrincipal 
     mapaPrincipal = marco.create_image(-2,-28200, image=mapa, anchor=NW)
     global petrol

@@ -167,12 +167,12 @@ def moveCarroPrincipal(tecla):
                 y=num1
                 marco.move(petrol,num1,0)
                 
-            elif dy<=30 and dx<=20 :
+            elif dy<=10 and dx<=10 :
                 print("be careful")
-                marco.move(jeep,+3,0)
+                #marco.move(jeep,+3,0)
+                marco.delete(jeep)
                 
 
-     
             elif marco.coords(mapaPrincipal)[1] == -26450:
                 if marco.coords(mapaPrincipal)[0] > 500:
                     marco.move(petrol,-num2,x-1750)
