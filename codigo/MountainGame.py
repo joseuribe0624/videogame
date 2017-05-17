@@ -171,7 +171,7 @@ def moveCarroPrincipal(tecla):
             #CARRO APARICION
             elif marco.coords(mapaPrincipal)[1] == -27190:
                 print("hello")
-                marco.move(enemyState,num2,x)
+                marco.move(enemyState,numEnemy1,y-marco.coords(enemyState)[1])
             
          #segunda aparicion mancha
             elif marco.coords(mapaPrincipal)[1] == -26450:
@@ -331,11 +331,11 @@ def empezar():
 
     #IMAGENES PARA LOS ENEMIGOS 
     global enemyState
-    enemyState= marco.create_image(0, 0, image=enemigoState, anchor=NW)
+    enemyState= marco.create_image(-35, 0, image=enemigoState, anchor=NW)
     #NUMEROS RANDOMS PARA LOS ENEMIGOS
     #aparicion1
     global numEnemy1
-    numEnemy1=random.randrange(220,410,10)
+    numEnemy1=random.randrange(260,410,10)
     
     global enemyState2
     enemyState2 = marco.create_image(0, 0, image=enemigoState2, anchor=NW)
