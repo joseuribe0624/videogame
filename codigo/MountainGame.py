@@ -173,7 +173,7 @@ def moveCarroPrincipal(tecla):
                 marco.move(petrol,num1,0)
 
               #segunda aparicion mancha
-            elif marco.coords(mapaPrincipal)[1] == -24900:
+            elif marco.coords(mapaPrincipal)[1] == -23500:
                 if marco.coords(petrol)[0] > 500:
                     marco.move(petrol,-num2,x-marco.coords(petrol)[1])
                 else:
@@ -202,7 +202,7 @@ def moveCarroPrincipal(tecla):
                 marco.move(enemyState2,numEnemy2,z-marco.coords(enemyState)[1])
 
             #segunda aparicion enemigo1
-            elif marco.coords(mapaPrincipal)[1] == -24490:
+            elif marco.coords(mapaPrincipal)[1] == -24000:
                 if marco.coords(enemyState)[0] > 500:
                     marco.move(enemyState,-numEnemy1_2,z-marco.coords(enemyState)[1])
                 else:
@@ -210,7 +210,7 @@ def moveCarroPrincipal(tecla):
 
             #segunda aparicion enemigo 2
 
-            elif marco.coords(mapaPrincipal)[1] == -24840:
+            elif marco.coords(mapaPrincipal)[1] == -24440:
                 if marco.coords(enemyState2)[0] > 500:
                     marco.move(enemyState2,-numEnemy2_2,z-marco.coords(enemyState)[1])
                 else:
@@ -228,6 +228,13 @@ def moveCarroPrincipal(tecla):
             elif marco.coords(mapaPrincipal)[1] == -25200:
                 print("surprise motherfucker")
                 marco.move(enemyFoll,numFoll,folly-marco.coords(enemyFoll)[1])
+
+            elif marco.coords(mapaPrincipal)[1] == -25200:
+                if marco.coords(jeep)[0] != marco.coords(enemyFoll):
+                    marco.after(15,marco.move(3,numFoll,folly))
+                
+
+            
                 
                     
             #if marco.coords(jeep)[0]!=marco.coords(enemyFoll)[0]:           
@@ -454,7 +461,7 @@ def empezar():
     global num3
     num3=random.randrange(10,50,3)
     global num4
-    num3=random.randrange(100,200,3)
+    num3=random.randrange(60,150,3)
 
 
     global mapaPrincipal 
@@ -474,7 +481,7 @@ def empezar():
     global numEnemy1
     numEnemy1=random.randrange(300,480,10)
     global numEnemy1_2
-    numEnemy1_2=random.randrange(100,200,10)
+    numEnemy1_2=random.randrange(70,150,10)
     
     global enemyState2
     enemyState2 = marco.create_image(-35, 0, image=enemigoState2, anchor=NW)
