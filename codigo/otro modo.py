@@ -166,7 +166,7 @@ def moveCarroPrincipal(tecla):
                 print("watch out")
                 marco.delete(jeep)
     
-            marco.after(15,marco.move(mapaPrincipal,0,10))
+            marco.after(30,marco.move(mapaPrincipal,0,10))
 
             #print(marco.find_closest(marco.coords(petrol)[0],marco.coords(petrol)[1]))
           
@@ -337,27 +337,29 @@ def moveCarroPrincipal(tecla):
 def enemigosSiguen():
              #enemigo que me sigue            
     if marco.coords(mapaPrincipal)[1] == -25200:
-        print("surprise motherfucker")
+
         marco.move(enemyFoll,numFoll,folly-marco.coords(enemyFoll)[1])
-        print(marco.coords(enemyFoll)[0])
+        
+        
+    elif marco.coords(mapaPrincipal)[1]>-25200 and marco.coords(mapaPrincipal)[1]<-25100:
         valorCoord=0
-
-
-    if marco.coords(mapaPrincipal)[1]
         while marco.coords(jeep)[0]!= marco.coords(enemyFoll)[0]:
-        #if marco.coords(jeep)[0] != marco.coords(enemyFoll)[0]
+            #llamo el after para el mapa ya que con esto evito el lag al hacer las siguientes acciones
+            marco.after(10,marco.move(mapaPrincipal,0,10))
+            # para que si el personaje esta en una posicion superior hacia la derecha, este sume 
             if marco.coords(jeep)[0]>marco.coords(enemyFoll)[0]:
-                print("negative")
+                #print("negative")
                 valorCoord= marco.coords(jeep)[0]-marco.coords(enemyFoll)[0]
                 marco.after(15,marco.move(enemyFoll,valorCoord,0))
                 #game.update()
-            elif marco.coords(jeep)[0] < marco.coords(enemyFoll)[0]:
-                print("positive")
+                #aqui como no se va a cumplir el if de arriba se sobre entiende que nuestro carro esta en una posicion menor al enemigo
+                #por eso en este caso la direccion en el eje x se debe de restar
+            else:
                 valorCoords= marco.coords(enemyFoll)[0]-marco.coords(jeep)[0]
                 marco.after(15,marco.move(enemyFoll,-valorCoord,0))
         
                 #game.update(
-            print(marco.coords(enemyFoll)[0])
+            #print(marco.coords(enemyFoll)[0])
             game.update()
            
             
