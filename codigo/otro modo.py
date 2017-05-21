@@ -186,6 +186,7 @@ def moveCarroPrincipal(tecla):
             if marco.coords(mapaPrincipal)[1] < -26450:
                 
                 if marco.coords(jeep)[0] > 455:
+                    
                     animacionMapaRight()
             
                 
@@ -256,6 +257,7 @@ def moveCarroPrincipal(tecla):
             #time.sleep(0.02)
 
 def animacionMapaLeft():
+    marco.itemconfigure(jeep, state='hidden')
     for a in range (len(explosiones)):
          
         display=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=explosiones[a], anchor=NW)
@@ -266,8 +268,10 @@ def animacionMapaLeft():
         game.update()
         time.sleep(0.2)
         marco.delete(display)
+    marco.itemconfigure(jeep, state='normal')
 
 def animacionMapaRight():
+    marco.itemconfigure(jeep, state='hidden')
     for a in range (len(explosiones)):
         #explosiones
         display=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=explosiones[a], anchor=NW)
@@ -278,6 +282,7 @@ def animacionMapaRight():
         game.update()
         time.sleep(0.2)
         marco.delete(display)
+    marco.itemconfigure(jeep, state='normal')
 
 def enemigoMueve():
     numerosAleatorios()
