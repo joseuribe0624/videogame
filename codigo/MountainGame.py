@@ -138,10 +138,10 @@ def moveCarroPrincipal(tecla):
     elif tecla.char=="b":
         # en un rango de 0 a 9000 serian noventa segundos es lo que dura la animacion del carro en movimiento
         #ya que esto es el tiempo limite que posee el carro para llegar a la meta
-        valor=208
-        valor2=614
-        valor3=376
-        valor4=444
+        valor=249
+        valor2=622
+        valor3=421
+        valor4=459
         #for x in range(0, 9000):
         global petrol    
         #marco.after(500,empezar)
@@ -185,11 +185,11 @@ def moveCarroPrincipal(tecla):
             #primera colision
             if marco.coords(mapaPrincipal)[1] < -26450:
                 
-                if marco.coords(jeep)[0] > 440:
+                if marco.coords(jeep)[0] > 455:
                     #si se choca va a aparecer una imagen de una explosion
                     for a in range (len(explosiones)):
                         #explosiones
-                        display=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=explosiones[a], anchor=NW)
+                        display=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=explosiones[a], anchor=NW)
                         if a==6:
                             marco.delete(display)
                             marco.move(jeep,-50,0)
@@ -199,10 +199,10 @@ def moveCarroPrincipal(tecla):
                         marco.delete(display)
                     # si sucede el choque lo que sucede con el break es que el mapa se va a detener
                 
-                elif marco.coords(jeep)[0] < 204.0:
+                elif marco.coords(jeep)[0] < 245.0:
                     for a in range (len(explosiones)):
                         #explosiones
-                        display=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=explosiones[a], anchor=NW)
+                        display=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=explosiones[a], anchor=NW)
                         if a==6:
                             marco.delete(display)
                             marco.move(jeep,+50,0)
@@ -216,7 +216,7 @@ def moveCarroPrincipal(tecla):
                 if marco.coords(jeep)[0] < valor: 
                     for a in range (len(explosiones)):
                         #explosiones
-                        display=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=explosiones[a], anchor=NW)
+                        display=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=explosiones[a], anchor=NW)
                         if a==6:
                             marco.delete(display)
                             marco.move(jeep,+50,0)
@@ -227,7 +227,7 @@ def moveCarroPrincipal(tecla):
                 elif marco.coords(jeep)[0] > valor4:
                     for a in range (len(explosiones)):
                         #explosiones
-                        display=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=explosiones[a], anchor=NW)
+                        display=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=explosiones[a], anchor=NW)
                         if a==6:
                             marco.delete(display)
                             marco.move(jeep,-50,0)
@@ -242,10 +242,10 @@ def moveCarroPrincipal(tecla):
                     valor4=valor4+3
             # tercera colision linea recta
             elif marco.coords(mapaPrincipal)[1] >= -25950 and marco.coords(mapaPrincipal)[1] < -17840:
-                if marco.coords(jeep)[0] > 614: 
+                if marco.coords(jeep)[0] > 618: 
                     for a in range (len(explosiones)):
                         #explosiones
-                        display=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=explosiones[a], anchor=NW)
+                        display=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=explosiones[a], anchor=NW)
                         if a==6:
                             marco.delete(display)
                             marco.move(jeep,-50,0)
@@ -253,10 +253,10 @@ def moveCarroPrincipal(tecla):
                         game.update()
                         time.sleep(0.2)
                         marco.delete(display)
-                elif marco.coords(jeep)[0] < 376.0:
+                elif marco.coords(jeep)[0] < 415.0:
                     for a in range (len(explosiones)):
                         #explosiones
-                        display=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=explosiones[a], anchor=NW)
+                        display=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=explosiones[a], anchor=NW)
                         if a==6:
                             marco.delete(display)
                             marco.move(jeep,+50,0)
@@ -271,7 +271,7 @@ def moveCarroPrincipal(tecla):
                 if marco.coords(jeep)[0] > valor2: 
                     for a in range (len(explosiones)):
                         #explosiones
-                        display=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=explosiones[a], anchor=NW)
+                        display=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=explosiones[a], anchor=NW)
                         if a==6:
                             marco.delete(display)
                             marco.move(jeep,-50,0)
@@ -282,7 +282,7 @@ def moveCarroPrincipal(tecla):
                 elif marco.coords(jeep)[0] < valor3:
                     for a in range (len(explosiones)):
                         #explosiones
-                        display=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=explosiones[a], anchor=NW)
+                        display=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=explosiones[a], anchor=NW)
                         if a==6:
                             marco.delete(display)
                             marco.move(jeep,+50,0)
@@ -300,7 +300,7 @@ def moveCarroPrincipal(tecla):
                 if marco.coords(jeep)[0] > 440:
                     for a in range (len(explosiones)):
                         #explosiones
-                        display=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=explosiones[a], anchor=NW)
+                        display=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=explosiones[a], anchor=NW)
                         if a==6:
                             marco.delete(display)
                             marco.move(jeep,-50,0)
@@ -313,7 +313,7 @@ def moveCarroPrincipal(tecla):
                 elif marco.coords(jeep)[0] < 204.0:
                     for a in range (len(explosiones)):
                         #explosiones
-                        display=marco.create_image(marco.coords(jeep)[0]+20,marco.coords(jeep)[1]+30,image=explosiones[a], anchor=NW)
+                        display=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=explosiones[a], anchor=NW)
                         if a==6:
                             marco.delete(display)
                             marco.move(jeep,+50,0)
@@ -324,7 +324,7 @@ def moveCarroPrincipal(tecla):
                         time.sleep(0.2)
                         marco.delete(display)
 #FIN COLISIONES
-            print(marco.coords(mapaPrincipal)[1])
+            print(marco.coords(mapaPrincipal)[1],marco.coords(jeep)[0])
             
                         
             marco.move(petrol,0,x)
