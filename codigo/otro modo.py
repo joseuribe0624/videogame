@@ -153,6 +153,8 @@ def moveCarroPrincipal(tecla):
         z=10
         global folly
         folly=10
+        global moveY
+        moveY=10
         print(marco.find_all())
         
         #print(box)
@@ -176,6 +178,8 @@ def moveCarroPrincipal(tecla):
             enemigosApariciones()
 
             enemigosSiguen()
+
+            enemigoMueve()
             
 #COLISONES MAPA
             #primera colision
@@ -315,17 +319,19 @@ def moveCarroPrincipal(tecla):
                             marco.move(jeep,+50,0)
                             #marco.move(mapaPrincipal,0,0)
 
-#FIN COLISIONES 
+
                         game.update()
                         time.sleep(0.2)
                         marco.delete(display)
-            #print(marco.coords(mapaPrincipal)[1])
+#FIN COLISIONES
+            print(marco.coords(mapaPrincipal)[1])
             
                         
             marco.move(petrol,0,x)
             marco.move(enemyState,0,y)
             marco.move(enemyState2,0,z)
             marco.move(enemyFoll,0,folly)
+            marco.move(enemyMov,0,moveY)
            #print(marco.coords(mapaPrincipal)[1], marco.coords(petrol)[0],marco.coords(petrol)[1], marco.coords(enemyFoll)[0])  
             #time.sleep(0.015)
             # se va cargando el movimiento
@@ -333,6 +339,31 @@ def moveCarroPrincipal(tecla):
             # cada cuantos segundos se va a mover la pantalla
             #time.sleep(0.02)
 
+def enemigoMueve():
+     if marco.coords(mapaPrincipal)[1] == -19700:
+
+        marco.move(enemyMov,numMove,moveY-marco.coords(enemyMov)[1])
+        
+     elif marco.coords(mapaPrincipal)[1]>-19700 and marco.coords(mapaPrincipal)[1] < -19600:
+        
+        while marco.coords(mapaPrincipal)[1]< -19600:
+            #llamo el after para el mapa ya que con esto evito el lag al hacer las siguientes acciones
+            marco.after(15,marco.move(mapaPrincipal,0,10))
+            
+            if marco.coords(enemyMov)[0]>540:
+                marco.after(15,marco.move(enemyMov,-10,0))
+                
+                #game.update()
+                #aqui como no se va a cumplir el if de arriba se sobre entiende que nuestro carro esta en una posicion menor al enemigo
+                #por eso en este caso la direccion en el eje x se debe de restar
+            else:
+                marco.after(15,marco.move(enemyMov,10,0))
+                
+        
+                #game.update(
+            #print(marco.coords(enemyFoll)[0])
+            game.update()
+    
 #FUNCIONES PARA LOS MAPAS CON CURVAS 
 def enemigosSiguen():
              #enemigo que me sigue            
@@ -340,36 +371,50 @@ def enemigosSiguen():
 
         marco.move(enemyFoll,numFoll,folly-marco.coords(enemyFoll)[1])
         
-        
     elif marco.coords(mapaPrincipal)[1]>-25200 and marco.coords(mapaPrincipal)[1]<-25100:
         valorCoord=0
         while marco.coords(jeep)[0]!= marco.coords(enemyFoll)[0]:
-            #llamo el after para el mapa ya que con esto evito el lag al hacer las siguientes acciones
-            marco.after(10,marco.move(mapaPrincipal,0,10))
-            # para que si el personaje esta en una posicion superior hacia la derecha, este sume 
+        #llamo el after para el mapa ya que con esto evito el lag al hacer las siguientes acciones
+            marco.after(15,marco.move(mapaPrincipal,0,10))
+                # para que si el personaje esta en una posicion superior hacia la derecha, este sume 
             if marco.coords(jeep)[0]>marco.coords(enemyFoll)[0]:
-                #print("negative")
+                
                 valorCoord= marco.coords(jeep)[0]-marco.coords(enemyFoll)[0]
                 marco.after(15,marco.move(enemyFoll,valorCoord,0))
-                #game.update()
+                    
                 #aqui como no se va a cumplir el if de arriba se sobre entiende que nuestro carro esta en una posicion menor al enemigo
                 #por eso en este caso la direccion en el eje x se debe de restar
             else:
                 valorCoords= marco.coords(enemyFoll)[0]-marco.coords(jeep)[0]
                 marco.after(15,marco.move(enemyFoll,-valorCoord,0))
         
-                #game.update(
-            #print(marco.coords(enemyFoll)[0])
             game.update()
+            
+    elif marco.coords(mapaPrincipal)[1] == -22000:
+
+        marco.move(enemyFoll,numFoll2,folly-marco.coords(enemyFoll)[1])
+        
+    elif marco.coords(mapaPrincipal)[1]>-22000 and marco.coords(mapaPrincipal)[1]<-21900:
+        valorCoord=0
+        while marco.coords(jeep)[0]!= marco.coords(enemyFoll)[0]:
+        #llamo el after para el mapa ya que con esto evito el lag al hacer las siguientes acciones
+            marco.after(15,marco.move(mapaPrincipal,0,10))
+            # para que si el personaje esta en una posicion superior hacia la derecha, este sume 
+            if marco.coords(jeep)[0]>marco.coords(enemyFoll)[0]:
+              
+                valorCoord= marco.coords(jeep)[0]-marco.coords(enemyFoll)[0]
+                marco.after(15,marco.move(enemyFoll,valorCoord,0))
+                
+            else:
+                valorCoords= marco.coords(enemyFoll)[0]-marco.coords(jeep)[0]
+                marco.after(15,marco.move(enemyFoll,-valorCoord,0))
+        
+            game.update()
+    
+
+
            
             
-                            
-            #if marco.coords(jeep)[0]!=marco.coords(enemyFoll)[0]:           
-             #   if marco.coords(jeep)[0] > 380:
-              #      marco.after(15,marco.move(enemyFoll,-marco.coords(jeep)[0], 0))
-                       
-               # elif marco.coords(jeep)[0] < 280:
-                #    marco.after(15,marco.move(enemyFoll,marco.coords(jeep)[0], 0))
 
 def enemigosApariciones():
 #CARRO APARICION enemigo 1 
@@ -383,9 +428,9 @@ def enemigosApariciones():
     #segunda aparicion enemigo1
     elif marco.coords(mapaPrincipal)[1] == -24000:
         if marco.coords(enemyState)[0] > 500:
-            marco.move(enemyState,-numEnemy1_2,z-marco.coords(enemyState)[1])
+            marco.move(enemyState,-numEnemy1_2,y-marco.coords(enemyState)[1])
         else:
-            marco.move(enemyState,numEnemy1_2,z-marco.coords(enemyState)[1])
+            marco.move(enemyState,numEnemy1_2,y-marco.coords(enemyState)[1])
 
     #segunda aparicion enemigo 2
 
@@ -398,9 +443,15 @@ def enemigosApariciones():
     #tercera aparicion enemigo 1
     elif marco.coords(mapaPrincipal)[1] == -20340:
         if marco.coords(enemyState)[0] > 500:
-            marco.move(enemyState,-numEnemy1_2,z-marco.coords(enemyState)[1])
+            marco.move(enemyState,-numEnemy1_2,y-marco.coords(enemyState)[1])
         else:
-            marco.move(enemyState,numEnemy1_2,z-marco.coords(enemyState)[1])    
+            marco.move(enemyState,numEnemy1_2,y-marco.coords(enemyState)[1])
+
+    elif marco.coords(mapaPrincipal)[1] == -16900:
+        if marco.coords(enemyState)[0] > 350:
+            marco.move(enemyState2,-numEnemy2_2,z-marco.coords(enemyState2)[1])
+        else:
+            marco.move(enemyState2,numEnemy2_2,z-marco.coords(enemyState2)[1])
        
 def manchasAceites():
     if marco.coords(mapaPrincipal)[1] == -28190:
@@ -428,10 +479,10 @@ def manchasAceites():
             marco.move(petrol,num4,x-marco.coords(petrol)[1])
 
     elif marco.coords(mapaPrincipal)[1] == -14000:
-        if marco.coords(petrol)[0] > 500:
-            marco.move(petrol,-num2,x-marco.coords(petrol)[1])
+        if marco.coords(petrol)[0] > 600:
+            marco.move(petrol,-num5,x-marco.coords(petrol)[1])
         else:
-            marco.move(petrol,num2,x-marco.coords(petrol)[1])
+            marco.move(petrol,num5,x-marco.coords(petrol)[1])
 # condicionales para mover el carro en sentido del eje y adelante atras
 
 
@@ -491,7 +542,8 @@ def empezar():
     num3=random.randrange(10,50,3)
     global num4
     num4=random.randrange(100,300,3)
-
+    global num5
+    num5=random.randrange(250,400,10)
 
     global mapaPrincipal 
     mapaPrincipal = marco.create_image(-2,-28200, image=mapa, anchor=NW)
@@ -529,20 +581,20 @@ def empezar():
     numFoll=random.randrange(480,580,10)
     
     global enemyFoll2
-    enemyFoll2= marco.create_image(0, 0, image=enemigoFollow2, anchor=NW)
+    enemyFoll2= marco.create_image(-35, 0, image=enemigoFollow2, anchor=NW)
     #aparicion1
     global numFoll2
-    numFoll2=random.randrange(320,580,10)
+    numFoll2=random.randrange(50,150,10)
 
     #ENEMIGOS QUE SE MUEVEN
     global enemyMov
-    enemyMove= marco.create_image(0, 0, image=enemigoMove, anchor=NW)
+    enemyMov= marco.create_image(-35, 0, image=enemigoMove, anchor=NW)
     #aparicion 1
     global numMove
-    numMove=random.randrange(220,410,12)
+    numMove=random.randrange(540,680,10)
     
     global enemyMov2
-    enemyMove2= marco.create_image(0, 0, image=enemigoMove2, anchor=NW)
+    enemyMov2= marco.create_image(-35, 0, image=enemigoMove2, anchor=NW)
     #aparicion1
     global numMove2
     numMove2=random.randrange(220,410,11)
