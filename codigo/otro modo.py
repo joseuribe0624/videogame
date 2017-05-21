@@ -391,8 +391,10 @@ def enemigosSiguen():
             game.update()
             
     elif marco.coords(mapaPrincipal)[1] == -22000:
-
-        marco.move(enemyFoll,numFoll2,folly-marco.coords(enemyFoll)[1])
+        if marco.coords(enemyFoll)[0] > 320:
+            marco.move(enemyFoll,-numFoll2,folly-marco.coords(enemyFoll)[1])
+        else:
+            marco.move(enemyFoll,-numFoll2,folly-marco.coords(enemyFoll)[1])
         
     elif marco.coords(mapaPrincipal)[1]>-22000 and marco.coords(mapaPrincipal)[1]<-21900:
         valorCoord=0
@@ -562,7 +564,7 @@ def empezar():
     global numEnemy1
     numEnemy1=random.randrange(360,480,10)
     global numEnemy1_2
-    numEnemy1_2=random.randrange(100,250,10)
+    numEnemy1_2=random.randrange(100,200,10)
     
     global enemyState2
     enemyState2 = marco.create_image(-35, 0, image=enemigoState2, anchor=NW)
