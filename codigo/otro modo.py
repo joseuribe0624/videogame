@@ -161,12 +161,15 @@ def moveCarroPrincipal(tecla):
         while True:
             box2 = marco.bbox(petrol)
             box =marco.bbox(jeep)
+            #box3 = marco.bbox()
          #   print(marco.coords(petrol)[0])
             #mueve el mapa 10 pixeles esto dara la sensacion de moverce hacia atras
             #marco.move(mapaPrincipal,0,10)
             if 2 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
-                print("watch out")
-                marco.delete(jeep)
+                if marco.coords(jeep)> marco.coords(petrol):
+                    animacionRight()
+                else:
+                    animacionLeft()
     
             marco.after(30,marco.move(mapaPrincipal,0,10))
 
@@ -255,6 +258,30 @@ def moveCarroPrincipal(tecla):
             game.update()
             # cada cuantos segundos se va a mover la pantalla
             #time.sleep(0.02)
+            
+def animacionLeft():
+    marco.itemconfigure(jeep, state='hidden')
+    for a in range (len(choqueLeft)):
+        display1=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=choqueLeft[a], anchor=NW)
+        if a==1:
+            marco.delete(display1)
+            marco.move(jeep,+50,0)
+        game.update()
+        time.sleep(1.0)
+        marco.delete(display1)
+    marco.itemconfigure(jeep, state='normal')
+    
+def animacionRight():
+    #marco.itemconfigure(jeep, state='hidden')
+    for a in range (len(choqueRight)):    
+        display1=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=choqueRight[a], anchor=NW)
+        if a==1:
+            marco.delete(display1)
+            marco.move(jeep,+50,0)
+        game.update()
+        time.sleep(1.0)
+        marco.delete(display1)
+    #marco.itemconfigure(jeep, state='normal')
 
 def animacionMapaLeft():
     marco.itemconfigure(jeep, state='hidden')
@@ -305,7 +332,7 @@ def enemigoMueve():
                 marco.after(15,marco.move(enemyMov,10,0))
             game.update()
 
-    elif marco.coords(mapaPrincipal)[1] == -13800:  
+    elif marco.coords(mapaPrincipal)[1] == -2800:  
          marco.coords(enemyMov,num1,0)
 
     elif marco.coords(mapaPrincipal)[1]>-13800 and marco.coords(mapaPrincipal)[1] < -13700:
@@ -366,7 +393,7 @@ def enemigosSiguen():
             game.update()
             
     elif marco.coords(mapaPrincipal)[1] == -8500:
-        marco.coords(enemyFoll, num2,0)
+        marco.coords(enemyFoll, num1,0)
         
     elif marco.coords(mapaPrincipal)[1]>-8500 and marco.coords(mapaPrincipal)[1]<-8400:
         valorCoord=0
@@ -551,6 +578,16 @@ exp6 = PhotoImage(file="explosion6.png")
 exp7 = PhotoImage(file="explosion7.png")
 
 explosiones=[exp1,exp2,exp3,exp4,exp5,exp6,exp7]
+
+#choques Left
+choque1= PhotoImage(file="crash1.png")
+choque2= PhotoImage(file="crash2.png")
+choqueLeft=[choque1,choque2]
+
+#choques right
+choque3=PhotoImage(file="crash3.png")
+choque4= PhotoImage(file="crash4.png")
+choqueRight=[choque3,choque4]
 
 def numerosAleatorios():
     for a in range(1):
