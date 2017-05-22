@@ -188,7 +188,7 @@ def moveCarroSegundoMap(key):
                     marco.delete(box2)
                     animacionLeft()
     
-            marco.after(20,marco.move(mapaPrincipal,0,10))
+            marco.after(15,marco.move(mapaPrincipal,0,10))
 
             #print(marco.find_closest(marco.coords(petrol)[0],marco.coords(petrol)[1]))
           
@@ -202,7 +202,7 @@ def moveCarroSegundoMap(key):
             
 #COLISONES MAPA
             #primera colision
-            if marco.coords(mapaPrincipal)[1] < -26450 and marco.coords(mapaPrincipal)[1] < 1000 :
+            if marco.coords(mapaPrincipal)[1] < 1000 :
                 
                 if marco.coords(jeep)[0] > 509:
                     
