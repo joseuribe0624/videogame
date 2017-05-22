@@ -191,12 +191,12 @@ def moveCarroPrincipal(tecla):
             if marco.coords(mapaPrincipal)[1] < -26450:
                 
                 if marco.coords(jeep)[0] > 455:
+                    animacionMapaLeft()
                     
-                    animacionMapaRight()
             
                 
                 elif marco.coords(jeep)[0] < 245.0:
-                    animacionMapaLeft()
+                    animacionMapaRight()
                  
                 
             # colision para la primer curva
@@ -216,10 +216,10 @@ def moveCarroPrincipal(tecla):
             # tercera colision linea recta
             elif marco.coords(mapaPrincipal)[1] >= -25950 and marco.coords(mapaPrincipal)[1] < -17840:
                 if marco.coords(jeep)[0] > 618: 
-                    animacionMapaRight()
-                        
+                    
+                    animacionMapaLeft() 
                 elif marco.coords(jeep)[0] < 415.0:
-                    animacionMapaLeft()
+                    animacionMapaRight()
                         
             #colision  de segunda curva
                         
@@ -265,14 +265,14 @@ def animacionLeft():
     marco.itemconfigure(jeep, state='hidden')
     for a in range (len(choqueLeft)):
         display1=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=choqueLeft[a], anchor=NW)
-        marco.after(50,marco.move(display1,50,0))
-        marco.move(display1,50,0)
-        marco.after(15,marco.move(jeep,50,0))
+        marco.after(50,marco.move(display1,-20,-10))
+        marco.move(display1,-20,-10)
+        marco.after(15,marco.move(jeep,-20,-10))
         #marco.move(display1,-50,0)
         if a==4:
             #marco.after(15,marco.move(display1,50,0))
             marco.delete(display1)
-            marco.move(jeep,+50,0)
+            marco.move(jeep,-20,-10)
         game.update()
         marco.delete(display1)
     marco.itemconfigure(jeep, state='normal')
@@ -281,14 +281,14 @@ def animacionRight():
     marco.itemconfigure(jeep, state='hidden')
     for a in range (len(choqueRight)):    
         display1=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=choqueRight[a], anchor=NW)
-        marco.after(50,marco.move(display1,-50,0))
-        marco.move(display1,-50,0)
-        marco.after(15,marco.move(jeep,-50,0))
+        marco.after(50,marco.move(display1,20,-10))
+        marco.move(display1,20,-10)
+        marco.after(15,marco.move(jeep,20,-10))
         #marco.move(display1,+50,0)
         if a==4:
             #marco.after(15,marco.move(display1,20,0))
             marco.delete(display1)
-            marco.move(jeep,-50,0)
+            marco.move(jeep,20,-10)
         game.update()
         #time.sleep(1.0)
         
