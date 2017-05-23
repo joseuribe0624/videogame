@@ -61,48 +61,8 @@ marco = Canvas(game, width=820, height=29000, bg="light blue")
 marco.pack_forget()
 
 
-def moveCarroTercerMap(key):
-    global posicionMap
-    global posCarro
-    valor=204
-    rightCar=3
-    # si se preciona la tecla a
-    if key.char == "a":
-        # el jeep se mueve a la izquierda -3 pixeles en el eje x
-        marco.move(jeep, -3, 0)
-        # cada un milisegundo
-        marco.after(1, marco.move(jeep, -3, 0))
-    elif key.char == "d":
-        # se mueve a la derecha si se presiona la tecla d
-        marco.move(jeep, 3, 0)
-        marco.after(1, marco.move(jeep, 3, 0))
-    # condicional para que cuando se presiona la tecla b el carro arranque
-    elif key.char=="b":
-
-        while True:
-            colisiones()
-          
-            manchasAceites2()
-
-            enemigosApariciones2()
-
-            enemigosSiguen2()
-
-            enemigoMueve2()
-            
-            checkColide()
-            
-                        
-            marco.after(3,marco.move(mapaPrincipal,0,10))                
-            marco.after(3,marco.move(petrol,0,10))
-            marco.after(3,marco.move(enemyState,0,10))
-            marco.after(3,marco.move(enemyState2,0,10))
-            marco.after(3,marco.move(enemyFoll,0,10))
-            marco.after(3,marco.move(enemyMov,0,10))
-      
-            game.update()
-            
-def moveCarroSegundoMap(keys):
+#FUNCION PARA MOVER EL CARRO EN LOS MAPAS LINEALES            
+def moveCarroRecto(key):
     global posicionMap
     global posCarro
     valor=204
@@ -144,7 +104,7 @@ def moveCarroSegundoMap(keys):
          
 
 # funcion para los movimientos del carro del mapa 1
-def moveCarroPrincipal(tecla):
+def moveCarroCurva(tecla):
     global posicionMap
     global posCarro
 
@@ -861,6 +821,7 @@ aceite=PhotoImage(file="aceite.png")
 mapaDesierto = PhotoImage(file="mapWorld2.png ")
 mapaPelea=PhotoImage(file="mapWorld3.png")
 mapaBombas=PhotoImage(file="mapWorld4.png")
+mapaFin=PhotoImage(file="mapWorld5.png")
 
 #ENEMIGOS
 enemigoState= PhotoImage(file="enemy1.png")
@@ -983,7 +944,7 @@ def empezar():
     #miniCuper = marco.create_image(0, 525, image=carroMini, anchor=NW) 
     #aceite = PhotoImage(file="aceite.png")
     #bind para asignar que move es con una tecla
-    marco.bind("<KeyPress>", moveCarroPrincipal)
+    marco.bind("<KeyPress>", moveCarroCurva)
     marco.focus_set()
     game.mainloop()
 
@@ -1045,7 +1006,7 @@ def nivel2():
     global jeep
     jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
 
-    marco.bind("<KeyPress>", moveCarroSegundoMap)
+    marco.bind("<KeyPress>", moveCarroRecto)
     marco.focus_set()
     game.mainloop()
 
@@ -1104,11 +1065,127 @@ def nivel3():
     global jeep
     jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
 
-    marco.bind("<KeyPress>", moveCarroTercerMap)
+    marco.bind("<KeyPress>", moveCarroRecto)
     marco.focus_set()
     game.mainloop()
 
 def nivel4():
+    game.geometry("820x580")
+    # de iconify para maximixar la ventana cuando ya presione el boton
+    game.deiconify()
+    marco.pack()
+    raiz.withdraw()
+    # nueva ventana
+    game.resizable(width=False, height=False)
+
+   
+    global mapaPrincipal 
+    mapaPrincipal = marco.create_image(-2,-28200, image=mapaBombas, anchor=NW)
+    global petrol
+    petrol = marco.create_image(-35, 0, image=aceite, anchor=NW)   
+    # tenemos que darle una variable para los eventos de las teclas
+    
+    miniRoad = marco.create_image(0, 0, image=miniCarretera, anchor=NW)
+
+    #IMAGENES PARA LOS ENEMIGOS 
+    global enemyState
+    enemyState= marco.create_image(-35, 0, image=enemigoState, anchor=NW)
+    #NUMEROS RANDOMS PARA LOS ENEMIGOS
+    #aparicion1
+    global numEnemy1
+    numEnemy1=random.randrange(360,480,10)
+   
+    global enemyState2
+    enemyState2 = marco.create_image(-35, 0, image=enemigoState2, anchor=NW)
+    #NUMEROS RANDOMS PARA LOS ENEMIGOS
+    #aparicion1
+   
+    #ENMIGOS QUE ME SIGUEN
+    global enemyFoll
+    enemyFoll= marco.create_image(-35, 0, image=enemigoFollow, anchor=NW)
+    #aparicion1
+    
+    
+    global enemyFoll2
+    enemyFoll2= marco.create_image(-35, 0, image=enemigoFollow2, anchor=NW)
+    #aparicion1
+   
+
+    #ENEMIGOS QUE SE MUEVEN
+    global enemyMov
+    enemyMov= marco.create_image(-35, 0, image=enemigoMove, anchor=NW)
+    #aparicion 1
+   
+    
+    global enemyMov2
+    enemyMov2= marco.create_image(-35, 0, image=enemigoMove2, anchor=NW)
+    #aparicion1
+
+    global jeep
+    jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
+
+    marco.bind("<KeyPress>", moveCarroRecto)
+    marco.focus_set()
+    game.mainloop()
+
+def nivel5():
+    game.geometry("820x580")
+    # de iconify para maximixar la ventana cuando ya presione el boton
+    game.deiconify()
+    marco.pack()
+    raiz.withdraw()
+    # nueva ventana
+    game.resizable(width=False, height=False)
+
+   
+    global mapaPrincipal 
+    mapaPrincipal = marco.create_image(-2,-28200, image=mapaFin, anchor=NW)
+    global petrol
+    petrol = marco.create_image(-35, 0, image=aceite, anchor=NW)   
+    # tenemos que darle una variable para los eventos de las teclas
+    
+   
+
+    #IMAGENES PARA LOS ENEMIGOS 
+    global enemyState
+    enemyState= marco.create_image(-35, 0, image=enemigoState, anchor=NW)
+    #NUMEROS RANDOMS PARA LOS ENEMIGOS
+    #aparicion1
+    global numEnemy1
+    numEnemy1=random.randrange(360,480,10)
+   
+    global enemyState2
+    enemyState2 = marco.create_image(-35, 0, image=enemigoState2, anchor=NW)
+    #NUMEROS RANDOMS PARA LOS ENEMIGOS
+    #aparicion1
+   
+    #ENMIGOS QUE ME SIGUEN
+    global enemyFoll
+    enemyFoll= marco.create_image(-35, 0, image=enemigoFollow, anchor=NW)
+    #aparicion1
+    
+    
+    global enemyFoll2
+    enemyFoll2= marco.create_image(-35, 0, image=enemigoFollow2, anchor=NW)
+    #aparicion1
+   
+
+    #ENEMIGOS QUE SE MUEVEN
+    global enemyMov
+    enemyMov= marco.create_image(-35, 0, image=enemigoMove, anchor=NW)
+    #aparicion 1
+   
+    
+    global enemyMov2
+    enemyMov2= marco.create_image(-35, 0, image=enemigoMove2, anchor=NW)
+    #aparicion1
+
+    global jeep
+    jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
+
+    marco.bind("<KeyPress>", moveCarroCurva)
+    marco.focus_set()
+    game.mainloop()
 
 
 
@@ -1165,13 +1242,13 @@ play.place(x=320, y=350)
 
 # estos botones los tengo que definir luego
 nivelNormal = ttk.Button(raiz, text="MAPA3",command=nivel3)  # tener cuidado con estos botones y no olvidarlos son para los niveles
-nivelExtrema = ttk.Button(raiz, text="MAPA4")
+nivelExtrema = ttk.Button(raiz, text="MAPA4",command=nivel4)
 
 # boton para iniciar la pantalla de juego
 iniciarGame = ttk.Button(raiz, text="MAPA1", command=empezar)
 
 mapa2=ttk.Button(raiz, text="MAPA2",command=nivel2)
-mapa5=ttk.Button(raiz,text="MAPA5")
+mapa5=ttk.Button(raiz,text="MAPA5",command=nivel5)
 
 mapa2.place_forget()
 mapa5.place_forget()
