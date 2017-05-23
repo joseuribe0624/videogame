@@ -62,7 +62,7 @@ marco.pack_forget()
 
 
 #FUNCION PARA MOVER EL CARRO EN LOS MAPAS LINEALES            
-def moveCarroRecto(key):
+def moveCarroRecto(keys):
     global posicionMap
     global posCarro
     valor=204
@@ -78,7 +78,7 @@ def moveCarroRecto(key):
         marco.move(jeep, 3, 0)
         marco.after(1, marco.move(jeep, 3, 0))
     # condicional para que cuando se presiona la tecla b el carro arranque
-    elif keys.char=="b":
+    elif keys.char=="w":
 
         while True:
             colisiones()
@@ -890,43 +890,43 @@ def empezar():
     global mapaPrincipal 
     mapaPrincipal = marco.create_image(-2,-28200, image=mapa, anchor=NW)
     global petrol
-    petrol = marco.create_image(-35, 0, image=aceite, anchor=NW)   
+    petrol = marco.create_image(-40, 0, image=aceite, anchor=NW)   
     # tenemos que darle una variable para los eventos de las teclas
     
     miniRoad = marco.create_image(0, 0, image=miniCarretera, anchor=NW)
 
     #IMAGENES PARA LOS ENEMIGOS 
     global enemyState
-    enemyState= marco.create_image(-35, 0, image=enemigoState, anchor=NW)
+    enemyState= marco.create_image(-40, 0, image=enemigoState, anchor=NW)
     #NUMEROS RANDOMS PARA LOS ENEMIGOS
     #aparicion1
     global numEnemy1
     numEnemy1=random.randrange(360,480,10)
    
     global enemyState2
-    enemyState2 = marco.create_image(-35, 0, image=enemigoState2, anchor=NW)
+    enemyState2 = marco.create_image(-40, 0, image=enemigoState2, anchor=NW)
     #NUMEROS RANDOMS PARA LOS ENEMIGOS
     #aparicion1
    
     #ENMIGOS QUE ME SIGUEN
     global enemyFoll
-    enemyFoll= marco.create_image(-35, 0, image=enemigoFollow, anchor=NW)
+    enemyFoll= marco.create_image(-40, 0, image=enemigoFollow, anchor=NW)
     #aparicion1
     
     
     global enemyFoll2
-    enemyFoll2= marco.create_image(-35, 0, image=enemigoFollow2, anchor=NW)
+    enemyFoll2= marco.create_image(-40, 0, image=enemigoFollow2, anchor=NW)
     #aparicion1
    
 
     #ENEMIGOS QUE SE MUEVEN
     global enemyMov
-    enemyMov= marco.create_image(-35, 0, image=enemigoMove, anchor=NW)
+    enemyMov= marco.create_image(-40, 0, image=enemigoMove, anchor=NW)
     #aparicion 1
    
     
     global enemyMov2
-    enemyMov2= marco.create_image(-35, 0, image=enemigoMove2, anchor=NW)
+    enemyMov2= marco.create_image(-40, 0, image=enemigoMove2, anchor=NW)
     #aparicion1
 
     global jeep
@@ -964,43 +964,43 @@ def nivel2():
     global mapaPrincipal 
     mapaPrincipal = marco.create_image(-2,-28200, image=mapaDesierto, anchor=NW)
     global petrol
-    petrol = marco.create_image(-35, 0, image=aceite, anchor=NW)   
+    petrol = marco.create_image(-40, 0, image=aceite, anchor=NW)   
     # tenemos que darle una variable para los eventos de las teclas
     
     miniRoad = marco.create_image(0, 0, image=miniCarretera, anchor=NW)
 
     #IMAGENES PARA LOS ENEMIGOS 
     global enemyState
-    enemyState= marco.create_image(-35, 0, image=enemigoState, anchor=NW)
+    enemyState= marco.create_image(-40, 0, image=enemigoState, anchor=NW)
     #NUMEROS RANDOMS PARA LOS ENEMIGOS
     #aparicion1
     global numEnemy1
     numEnemy1=random.randrange(360,480,10)
    
     global enemyState2
-    enemyState2 = marco.create_image(-35, 0, image=enemigoState2, anchor=NW)
+    enemyState2 = marco.create_image(-40, 0, image=enemigoState2, anchor=NW)
     #NUMEROS RANDOMS PARA LOS ENEMIGOS
     #aparicion1
    
     #ENMIGOS QUE ME SIGUEN
     global enemyFoll
-    enemyFoll= marco.create_image(-35, 0, image=enemigoFollow, anchor=NW)
+    enemyFoll= marco.create_image(-40, 0, image=enemigoFollow, anchor=NW)
     #aparicion1
     
     
     global enemyFoll2
-    enemyFoll2= marco.create_image(-35, 0, image=enemigoFollow2, anchor=NW)
+    enemyFoll2= marco.create_image(-40, 0, image=enemigoFollow2, anchor=NW)
     #aparicion1
    
 
     #ENEMIGOS QUE SE MUEVEN
     global enemyMov
-    enemyMov= marco.create_image(-35, 0, image=enemigoMove, anchor=NW)
+    enemyMov= marco.create_image(-40, 0, image=enemigoMove, anchor=NW)
     #aparicion 1
    
     
     global enemyMov2
-    enemyMov2= marco.create_image(-35, 0, image=enemigoMove2, anchor=NW)
+    enemyMov2= marco.create_image(-40, 0, image=enemigoMove2, anchor=NW)
     #aparicion1
 
     global jeep
@@ -1023,43 +1023,43 @@ def nivel3():
     global mapaPrincipal 
     mapaPrincipal = marco.create_image(-2,-28200, image=mapaPelea, anchor=NW)
     global petrol
-    petrol = marco.create_image(-35, 0, image=aceite, anchor=NW)   
+    petrol = marco.create_image(-40, 0, image=aceite, anchor=NW)   
     # tenemos que darle una variable para los eventos de las teclas
     
     miniRoad = marco.create_image(0, 0, image=miniCarretera, anchor=NW)
 
     #IMAGENES PARA LOS ENEMIGOS 
     global enemyState
-    enemyState= marco.create_image(-35, 0, image=enemigoState, anchor=NW)
+    enemyState= marco.create_image(-40, 0, image=enemigoState, anchor=NW)
     #NUMEROS RANDOMS PARA LOS ENEMIGOS
     #aparicion1
     global numEnemy1
     numEnemy1=random.randrange(360,480,10)
    
     global enemyState2
-    enemyState2 = marco.create_image(-35, 0, image=enemigoState2, anchor=NW)
+    enemyState2 = marco.create_image(-40, 0, image=enemigoState2, anchor=NW)
     #NUMEROS RANDOMS PARA LOS ENEMIGOS
     #aparicion1
    
     #ENMIGOS QUE ME SIGUEN
     global enemyFoll
-    enemyFoll= marco.create_image(-35, 0, image=enemigoFollow, anchor=NW)
+    enemyFoll= marco.create_image(-40, 0, image=enemigoFollow, anchor=NW)
     #aparicion1
     
     
     global enemyFoll2
-    enemyFoll2= marco.create_image(-35, 0, image=enemigoFollow2, anchor=NW)
+    enemyFoll2= marco.create_image(-40, 0, image=enemigoFollow2, anchor=NW)
     #aparicion1
    
 
     #ENEMIGOS QUE SE MUEVEN
     global enemyMov
-    enemyMov= marco.create_image(-35, 0, image=enemigoMove, anchor=NW)
+    enemyMov= marco.create_image(-40, 0, image=enemigoMove, anchor=NW)
     #aparicion 1
    
     
     global enemyMov2
-    enemyMov2= marco.create_image(-35, 0, image=enemigoMove2, anchor=NW)
+    enemyMov2= marco.create_image(-40, 0, image=enemigoMove2, anchor=NW)
     #aparicion1
 
     global jeep
@@ -1082,43 +1082,43 @@ def nivel4():
     global mapaPrincipal 
     mapaPrincipal = marco.create_image(-2,-28200, image=mapaBombas, anchor=NW)
     global petrol
-    petrol = marco.create_image(-35, 0, image=aceite, anchor=NW)   
+    petrol = marco.create_image(-40, 0, image=aceite, anchor=NW)   
     # tenemos que darle una variable para los eventos de las teclas
     
     miniRoad = marco.create_image(0, 0, image=miniCarretera, anchor=NW)
 
     #IMAGENES PARA LOS ENEMIGOS 
     global enemyState
-    enemyState= marco.create_image(-35, 0, image=enemigoState, anchor=NW)
+    enemyState= marco.create_image(-40, 0, image=enemigoState, anchor=NW)
     #NUMEROS RANDOMS PARA LOS ENEMIGOS
     #aparicion1
     global numEnemy1
     numEnemy1=random.randrange(360,480,10)
    
     global enemyState2
-    enemyState2 = marco.create_image(-35, 0, image=enemigoState2, anchor=NW)
+    enemyState2 = marco.create_image(-40, 0, image=enemigoState2, anchor=NW)
     #NUMEROS RANDOMS PARA LOS ENEMIGOS
     #aparicion1
    
     #ENMIGOS QUE ME SIGUEN
     global enemyFoll
-    enemyFoll= marco.create_image(-35, 0, image=enemigoFollow, anchor=NW)
+    enemyFoll= marco.create_image(-40, 0, image=enemigoFollow, anchor=NW)
     #aparicion1
     
     
     global enemyFoll2
-    enemyFoll2= marco.create_image(-35, 0, image=enemigoFollow2, anchor=NW)
+    enemyFoll2= marco.create_image(-40, 0, image=enemigoFollow2, anchor=NW)
     #aparicion1
    
 
     #ENEMIGOS QUE SE MUEVEN
     global enemyMov
-    enemyMov= marco.create_image(-35, 0, image=enemigoMove, anchor=NW)
+    enemyMov= marco.create_image(-40, 0, image=enemigoMove, anchor=NW)
     #aparicion 1
    
     
     global enemyMov2
-    enemyMov2= marco.create_image(-35, 0, image=enemigoMove2, anchor=NW)
+    enemyMov2= marco.create_image(-40, 0, image=enemigoMove2, anchor=NW)
     #aparicion1
 
     global jeep
@@ -1141,43 +1141,43 @@ def nivel5():
     global mapaPrincipal 
     mapaPrincipal = marco.create_image(-2,-28200, image=mapaFin, anchor=NW)
     global petrol
-    petrol = marco.create_image(-35, 0, image=aceite, anchor=NW)   
+    petrol = marco.create_image(-40, 0, image=aceite, anchor=NW)   
     # tenemos que darle una variable para los eventos de las teclas
     
-   
+    miniRoad = marco.create_image(0, 0, image=miniCarretera, anchor=NW)
 
     #IMAGENES PARA LOS ENEMIGOS 
     global enemyState
-    enemyState= marco.create_image(-35, 0, image=enemigoState, anchor=NW)
+    enemyState= marco.create_image(-40, 0, image=enemigoState, anchor=NW)
     #NUMEROS RANDOMS PARA LOS ENEMIGOS
     #aparicion1
     global numEnemy1
     numEnemy1=random.randrange(360,480,10)
    
     global enemyState2
-    enemyState2 = marco.create_image(-35, 0, image=enemigoState2, anchor=NW)
+    enemyState2 = marco.create_image(-40, 0, image=enemigoState2, anchor=NW)
     #NUMEROS RANDOMS PARA LOS ENEMIGOS
     #aparicion1
    
     #ENMIGOS QUE ME SIGUEN
     global enemyFoll
-    enemyFoll= marco.create_image(-35, 0, image=enemigoFollow, anchor=NW)
+    enemyFoll= marco.create_image(-40, 0, image=enemigoFollow, anchor=NW)
     #aparicion1
     
     
     global enemyFoll2
-    enemyFoll2= marco.create_image(-35, 0, image=enemigoFollow2, anchor=NW)
+    enemyFoll2= marco.create_image(-40, 0, image=enemigoFollow2, anchor=NW)
     #aparicion1
    
 
     #ENEMIGOS QUE SE MUEVEN
     global enemyMov
-    enemyMov= marco.create_image(-35, 0, image=enemigoMove, anchor=NW)
+    enemyMov= marco.create_image(-40, 0, image=enemigoMove, anchor=NW)
     #aparicion 1
    
     
     global enemyMov2
-    enemyMov2= marco.create_image(-35, 0, image=enemigoMove2, anchor=NW)
+    enemyMov2= marco.create_image(-40, 0, image=enemigoMove2, anchor=NW)
     #aparicion1
 
     global jeep
