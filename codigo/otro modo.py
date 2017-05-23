@@ -1,8 +1,8 @@
 #height altura
 #widht=ancho
-#menu
-#se demora 8,06 segundos a la velocidad que esta en acabarse la pantalla
+#m demora 8,06 segundos a la velocidad que esta en acabarse la pantalla
 from tkinter import *
+import tkinter
 from tkinter import font
 from tkinter import *
 from tkinter import ttk
@@ -102,91 +102,91 @@ def moveCarroTercerMap(key):
         while True:
             box2 = marco.bbox(petrol)
             box =marco.bbox(jeep)
-            box4 = marco.bbox(enemyState)
+            #box4 = marco.bbox(enemyState)
 
-            box5 = marco.bbox(enemyState2)
+            #box5 = marco.bbox(enemyState2)
 
-            box6 = marco.bbox(enemyFoll)
+            #box6 = marco.bbox(enemyFoll)
 
-            box7 = marco.bbox(enemyFoll2)
+            #box7 = marco.bbox(enemyFoll2)
 
-            box8 = marco.bbox(enemyMov)
+            #box8 = marco.bbox(enemyMov)
             
-            box9 = marco.bbox(enemyMov2)
+            #box9 = marco.bbox(enemyMov2)
 
           
             #MANCHA ACEITE
             if 2 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
                 # para saber que animacion debe realizar si la de desviarse a la izquierda o derecha
                 if marco.coords(jeep)> marco.coords(petrol):
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionRight()
                 else:
                     #marco.after(15,marco.move(jeep,50,0))
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionLeft()
 
             #ENEMIGO STATE
             elif 4 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
                 if marco.coords(jeep)> marco.coords(enemyState):
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionRight()
                 else:
                   
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionLeft()
 
                     
             #ENEMGIGO STATE2
             elif 5 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
                 if marco.coords(jeep)> marco.coords(enemyState2):
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionRight()
                 else:
                     #marco.after(15,marco.move(jeep,50,0))
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionLeft()
 
             #ENEMIGO FOLL
             elif 6 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
                 if marco.coords(jeep)> marco.coords(enemyFoll):
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionRight()
                 else:
                     #marco.after(15,marco.move(jeep,50,0))
-                    marco.delete(box2)
+                   # marco.delete(box2)
                     animacionLeft()
 
 
             #ENEMIGO FOLL2
             elif 7 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
                 if marco.coords(jeep)> marco.coords(enemyFoll2):
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionRight()
                 else:
                     #marco.after(15,marco.move(jeep,50,0))
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionLeft()
 
 
             #ENIMGO MOV
             elif 8 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
                 if marco.coords(jeep)> marco.coords(enemyMov):
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionRight()
                 else:
                     #marco.after(15,marco.move(jeep,50,0))
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionLeft()
                     
             #ENEMIGO MOV2
             elif 9 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
                 if marco.coords(jeep)> marco.coords(enemyMov2):
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionRight()
                 else:
                     #marco.after(15,marco.move(jeep,50,0))
-                    marco.delete(box2)
+                    #marco.delete(box2)
                     animacionLeft()
     
             marco.after(15,marco.move(mapaPrincipal,0,10))
@@ -417,7 +417,7 @@ def moveCarroPrincipal(tecla):
         marco.after(1, marco.move(jeep, 3, 0))
         #time.sleep(0.1)
     # condicional para que cuando se presiona la tecla b el carro arranque
-    elif tecla.char=="b":
+    elif tecla.char=="w":
         # en un rango de 0 a 9000 serian noventa segundos es lo que dura la animacion del carro en movimiento
         #ya que esto es el tiempo limite que posee el carro para llegar a la meta
         valor=249
@@ -1273,7 +1273,8 @@ def empezar():
     jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
 
     
-
+    nombre=Label(marco, textvariable=player)
+    nombre.place(x=100,y=0)
     
 
 
@@ -1413,19 +1414,20 @@ def nivel3():
 # BOTON PARA INICIAR LA PANTALLA DE JUEGO
 
 
-#player = StringVar()
+player = tkinter.StringVar()
+player.set("")
 
 
 # inicia el segundo menu para ya empezar el juego
 def iniciar():
     #global player
-    global textoJugador
-    textoJugador = ttk.Entry(raiz, width=30)
-    global player
-    player=textoJugador.get()
-    nombre = Label(marco, text=player)
+    
+    textoJugador = ttk.Entry(raiz, textvariable=player, width=30)
+    #global player
+    #player=textoJugador.get()
+    #nombre = Label(marco, text=player)
 
-    nombre.place(x=100,y=10)
+    #nombre.place(x=100,y=10)
     
     menu2.place(x=-2, y=-2)
     iniciarGame.place(x=320, y=250)
