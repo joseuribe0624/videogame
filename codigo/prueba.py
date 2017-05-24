@@ -1,5 +1,6 @@
 #height altura
 #widht=ancho
+#-10
 #m demora 8,06 segundos a la velocidad que esta en acabarse la pantalla
 from tkinter import *
 import tkinter
@@ -81,6 +82,7 @@ def moveCarroRecto(keys):
     elif keys.char=="w":
 
         while True:
+            print(marco.coords(mapaPrincipal)[1])
             colisiones()
           
             manchasAceites2()
@@ -198,6 +200,9 @@ def moveCarroCurva(tecla):
        
                 elif marco.coords(jeep)[0] < 204.0:
                     animacionMapaLeft()
+
+            elif marco.coords(mapaPrincipal)==-10:
+                break
             
             marco.after(5,marco.move(mapaPrincipal,0,10))                
             marco.after(5,marco.move(petrol,0,10))
@@ -935,6 +940,9 @@ def empezar():
     
     nombre=Label(marco, textvariable=player)
     nombre.place(x=100,y=0)
+
+    gasoline=Label(marco, textvariable=fuel)
+    gasoline.place(x=100, y=50)
     
 
 
@@ -1194,6 +1202,11 @@ def nivel5():
 #VARIABLE PARA QUE LA PERSONA INGRESE EL NOMBRE 
 player = tkinter.StringVar()
 player.set("")
+
+fuel=tkinter.IntVar()
+fuel.set(28200)
+
+
 
 
 # inicia el segundo menu para ya empezar el juego
