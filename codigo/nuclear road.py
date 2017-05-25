@@ -90,21 +90,9 @@ def moveCarroRecto(keys):
     # condicional para que cuando se presiona la tecla b el carro arranque
     elif keys.char=="w":
         #LABELS QUE CONTIENEN LAS VARIABLES DE GASOLINA SE DEFINEN CON SU COLOR Y BACKGROUND
-        kilometraje= Label(marco, text="fuel",fg="gold", bg="black", font="Times 16 bold")
-        kilometraje.place(x=2,y=70)
-
-        #como tkinter necesita un tipo de variable diferente estas se definen como intvar stringvar 
-        fuel=tkinter.IntVar()
-        gasoline= Label(marco, textvariable=fuel,fg="gold", bg="black", font="Times 16 bold")
-        gasoline.place(x=2,y=100)
+        labelsOb()
+        global gasolinaMermar
         gasolinaMermar=25100
-
-        vel=tkinter.IntVar()
-        velocidad= Label(marco, textvariable=vel,fg="gold", bg="black", font="Times 16 bold")
-        velocidad.place(x=2,y=200)
-        
-        kilometraje= Label(marco, text="km/h",fg="gold", bg="black", font="Times 16 bold")
-        kilometraje.place(x=2,y=170)
         global km 
         km=0 
         while True:
@@ -120,30 +108,28 @@ def moveCarroRecto(keys):
 
             enemigoMueve2()
             
-            fuel.set(gasolinaMermar)
-            gasolinaMermar-=10
-
-            vel.set(km)
-
-            if km <= 100:
-                km+=int(0.1)
-                
-            elif km ==100:
-                km=100
-            
-
-
-          
+        
             #colisiones 
-            elif marco.coords(mapaPrincipal)[1] < 1000 :
+            if marco.coords(mapaPrincipal)[1] < 10 :
                 if marco.coords(jeep)[0] > 509:
                     km=0
                     gasolinaMermar=gasolinaMermar-20
                     animacionMapaRight()
-                elif marco.coords(jeep)[0] < 275.0:
+                elif marco.coords(jeep)[0] < 279.0:
                     km=0
                     gasolinaMermar=gasolinaMermar-20
                     animacionMapaLeft()
+
+            fuel.set(gasolinaMermar)
+            gasolinaMermar-=10
+
+            vel.set(int(km))
+
+            if km <= 100:
+                km+=0.8
+                
+            elif km ==100:
+                km=100
 
             elif gasolinaMermar==0:
                 break
@@ -153,14 +139,16 @@ def moveCarroRecto(keys):
             
             
             elif marco.coords(mapaPrincipal)[1]==-10:
-                break     
-            marco.after(4,marco.move(mapaPrincipal,0,10))                
-            marco.after(4,marco.move(petrol,0,10))
-            marco.after(4,marco.move(enemyState,0,10))
-            marco.after(4,marco.move(enemyState2,0,10))
-            marco.after(4,marco.move(enemyFoll,0,10))
-            marco.after(4,marco.move(enemyMov,0,10))
-            marco.after(5,marco.move(bidon,0,10))
+                break
+
+            #print(marco.coords(mapaPrincipal)[1])
+            marco.after(veloz,marco.move(mapaPrincipal,0,10))                
+            marco.after(veloz,marco.move(petrol,0,10))
+            marco.after(veloz,marco.move(enemyState,0,10))
+            marco.after(veloz,marco.move(enemyState2,0,10))
+            marco.after(veloz,marco.move(enemyFoll,0,10))
+            marco.after(veloz,marco.move(enemyMov,0,10))
+            marco.after(veloz,marco.move(bidon,0,10))
             
             game.update()
 
@@ -190,21 +178,11 @@ def moveCarroCurva(tecla):
         valor4=459
         #print(box)
         #global fuel
-        kilometraje= Label(marco, text="gasolina",fg="gold", bg="black", font="Times 16 bold")
-        kilometraje.place(x=2,y=70)
-        
-        fuel=tkinter.IntVar()
-        gasoline= Label(marco, textvariable=fuel,fg="gold", bg="black", font="Times 16 bold")
-        gasoline.place(x=2,y=100)
+        labelsOb()
+        global gasolinaMermar
         gasolinaMermar=25100
-
-        vel=tkinter.IntVar()
-        velocidad= Label(marco, textvariable=vel,fg="gold", bg="black", font="Times 16 bold")
-        velocidad.place(x=2,y=200)
-        
-        kilometraje= Label(marco, text="km/h",fg="gold", bg="black", font="Times 16 bold")
-        kilometraje.place(x=2,y=170)
-        km=25100        
+        global km 
+        km=0        
         while True:
          
             colisiones()
@@ -218,26 +196,21 @@ def moveCarroCurva(tecla):
             enemigosSiguen()
 
             enemigoMueve()
-            fuel.set(gasolinaMermar)
-            gasolinaMermar-=10
-
-            
-            
+        
             if marco.coords(mapaPrincipal)[1] < -26450:
                 
                 if marco.coords(jeep)[0] > 455:
                     gasolinaMermar=gasolinaMermar-20
-                    
+                    km=0
                     animacionMapaRight()
             
                 
                 elif marco.coords(jeep)[0] < 245.0:
+                    km=0
                     gasolinaMermar=gasolinaMermar-20
                     animacionMapaLeft()
 
-            elif gasolinaMermar==0:
-         
-                break
+          
             
             elif 10 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
                 gasolinaMermar=gasolinaMermar+100
@@ -247,9 +220,11 @@ def moveCarroCurva(tecla):
             elif marco.coords(mapaPrincipal)[1] >= -26450 and marco.coords(mapaPrincipal)[1] < -25950 :
                 
                 if marco.coords(jeep)[0] < valor1:
+                    km=0
                     gasolinaMermar=gasolinaMermar-20
                     animacionMapaLeft()  
                 elif marco.coords(jeep)[0] > valor4:
+                    km=0
                     gasolinaMermar=gasolinaMermar-20
                     animacionMapaRight()
                     
@@ -262,10 +237,12 @@ def moveCarroCurva(tecla):
             # tercera colision linea recta
             elif marco.coords(mapaPrincipal)[1] >= -25950 and marco.coords(mapaPrincipal)[1] < -17840:
                 if marco.coords(jeep)[0] > 624:
+                    km=0
                     gasolinaMermar=gasolinaMermar-20
                     animacionMapaRight()
                     
                 elif marco.coords(jeep)[0] < 415.0:
+                    km=0
                     gasolinaMermar=gasolinaMermar-20
                     animacionMapaLeft()
                         
@@ -274,10 +251,12 @@ def moveCarroCurva(tecla):
             #si las coordenadas del mapa son mayores a ... y menores a ... de esta forma indica la pos para las colisiones
             elif marco.coords(mapaPrincipal)[1] >= -17840 and marco.coords(mapaPrincipal)[1] < -17255:
                 if marco.coords(jeep)[0] > valor2:
+                    km=0
                     gasolinaMermar=gasolinaMermar-20
                     animacionMapaRight()
                         
                 elif marco.coords(jeep)[0] < valor3:
+                    km=0
                     gasolinaMermar=gasolinaMermar-20
                     animacionMapaLeft()
                         
@@ -290,13 +269,32 @@ def moveCarroCurva(tecla):
                 # colision derecha carro
                 
                 if marco.coords(jeep)[0] > 440:
+                    km=0
                     gasolinaMermar=gasolinaMermar-20
                     animacionMapaRight()
                         
        
                 elif marco.coords(jeep)[0] < 204.0:
+                    km=0
                     gasolinaMermar=gasolinaMermar-20
                     animacionMapaLeft()
+
+            fuel.set(gasolinaMermar)
+            gasolinaMermar-=10
+
+            vel.set(int(km))
+
+            if km <= 100:
+                km+=0.8
+                
+            elif km ==100:
+                km=100
+
+            elif gasolinaMermar==0:
+                break
+            
+            elif 10 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
+                gasolinaMermar=gasolinaMermar+100
 
             elif marco.coords(mapaPrincipal)[1]==-10:
                 break
@@ -313,22 +311,43 @@ def moveCarroCurva(tecla):
             game.update()
 
 
-#COLISION MAPA SIN CURVAS
 
+
+#FUNCION PARA DEFINIR LOS LABELS DE LA GASOLINA Y VELOCIDAD 
+def labelsOb():
+    kilometraje= Label(marco, text="fuel",fg="gold", bg="black", font="Times 16 bold")
+    kilometraje.place(x=2,y=70)
+
+    global fuel
+        #como tkinter necesita un tipo de variable diferente estas se definen como intvar stringvar 
+    fuel=tkinter.IntVar()
+    gasoline= Label(marco, textvariable=fuel,fg="gold", bg="black", font="Times 16 bold")
+    gasoline.place(x=2,y=100)
     
+
+    global vel
+    vel=tkinter.IntVar()
+    velocidad= Label(marco, textvariable=vel,fg="gold", bg="black", font="Times 16 bold")
+    velocidad.place(x=2,y=200)
+        
+    kilometraje= Label(marco, text="km/h",fg="gold", bg="black", font="Times 16 bold")
+    kilometraje.place(x=2,y=170)    
             
 def colisiones():
     global box
     box =marco.bbox(jeep)
     if 2 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
+      
             # para saber que animacion debe realizar si la de desviarse a la izquierda o derecha
         if marco.coords(jeep)> marco.coords(petrol):
+            
             animacionRight()
         else:
             animacionLeft()
 
             #ENEMIGO STATE
     elif 4 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
+        
         if marco.coords(jeep)> marco.coords(enemyState):
             animacionRight()
         else:
@@ -382,12 +401,12 @@ def animacionLeft():
         display1=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=choqueLeft[a], anchor=NW)
         marco.after(50,marco.move(display1,-20,-5))
         marco.move(display1,-20,-5)
-        marco.after(15,marco.move(jeep,-20,-5))
+        marco.after(15,marco.move(jeep,-20,0))
         #marco.move(display1,-50,0)
         if a==4:
             #marco.after(15,marco.move(display1,50,0))
             marco.delete(display1)
-            marco.move(jeep,-20,-5)
+            marco.move(jeep,-20,0)
         game.update()
         marco.delete(display1)
     marco.itemconfigure(jeep, state='normal')
@@ -398,12 +417,12 @@ def animacionRight():
         display1=marco.create_image(marco.coords(jeep)[0]-13,marco.coords(jeep)[1],image=choqueRight[a], anchor=NW)
         marco.after(50,marco.move(display1,20,-5))
         marco.move(display1,20,-5)
-        marco.after(15,marco.move(jeep,20,-5))
+        marco.after(15,marco.move(jeep,20,0))
         #marco.move(display1,+50,0)
         if a==4:
             #marco.after(15,marco.move(display1,20,0))
             marco.delete(display1)
-            marco.move(jeep,20,-5)
+            marco.move(jeep,20,0)
         game.update()
         #time.sleep(1.0)
         
@@ -444,7 +463,7 @@ def animacionMapaRight():
 def bidonGasolineRecta():
     numerosAleatoriosRecta()
     numerosAleatoriosGasolina()
-    if marco.coords(mapaPrincipal)[1] == -15800:
+    if marco.coords(mapaPrincipal)[1] == -26440:
         if numG==2:
             marco.coords(bidon,num3, 0)
     elif marco.coords(mapaPrincipal)[1]==-25300:
@@ -972,7 +991,7 @@ choqueRight=[choque3,choque4,choque4_1,choque4_2]
 def numerosAleatoriosRecta():
     for a in range(1):
         global num3
-        num3=random.randrange(260,509,30)   
+        num3=random.randrange(270,509,30)   
         
 
 def numerosAleatorios():
@@ -993,6 +1012,9 @@ def numerosAleatoriosGasolina():
   
 # funcion para iniciar el juego el mapa 1
 def empezar():
+    #veloz es para regular la velocidad a la que va el mapa
+    global veloz
+    veloz=5
     game.geometry("820x580")
     # de iconify para maximixar la ventana cuando ya presione el boton
     game.deiconify()
@@ -1065,6 +1087,8 @@ def empezar():
 
 
 def nivel2():
+    global veloz
+    veloz=4
     game.geometry("820x580")
     # de iconify para maximixar la ventana cuando ya presione el boton
     game.deiconify()
@@ -1129,6 +1153,8 @@ def nivel2():
     game.mainloop()
 
 def nivel3():
+    global veloz
+    veloz=3
     game.geometry("820x580")
     # de iconify para maximixar la ventana cuando ya presione el boton
     game.deiconify()
@@ -1192,6 +1218,8 @@ def nivel3():
     game.mainloop()
 
 def nivel4():
+    global veloz
+    veloz=2
     game.geometry("820x580")
     # de iconify para maximixar la ventana cuando ya presione el boton
     game.deiconify()
@@ -1255,6 +1283,8 @@ def nivel4():
     game.mainloop()
 
 def nivel5():
+    global veloz
+    veloz=1
     game.geometry("820x580")
     # de iconify para maximixar la ventana cuando ya presione el boton
     game.deiconify()
