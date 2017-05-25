@@ -13,7 +13,7 @@ raiz = Toplevel(game)
 # ventana hija para el segundo menu
 
 # define el tamaño de la pantalla
-raiz.geometry("720x480")
+raiz.geometry("650x622")
 # se hace esto para que la pantalla no sea reducida o aumentada y asi no dañar el tamaño de la imagen
 raiz.resizable(width=False, height=False)
 # pantallas
@@ -32,6 +32,13 @@ menu_segundo = PhotoImage(file="segundoMenu.png")
 menu2 = ttk.Label(raiz, image=menu_segundo)
 menu2.place_forget()
 
+start = PhotoImage(file="botonInicio.png")
+
+
+tutoB = PhotoImage(file="btutorial.png")
+
+
+
 
 # boton que despliega tutorial na nueva pantalla
 def abrirTutorial():
@@ -49,13 +56,16 @@ def abrirTutorial():
 
 # funcion para el boton devolver genera de nuevo la pantalla de inicio
 def volver():
-    raiz.geometry('720x480')
+    raiz.geometry("650x622")
     raiz.resizable(width=False, height=False)
     tuto.place_forget()
-    tutorial.place(x=320, y=400)
+
     menuJuego.place(x=-2, y=-2)
-    volver.place(x=320, y=450)
-    play.place(x=320, y=350)
+    volver.place_forget()
+    tutorial.place(x=350, y=270)
+    play.place(x=200, y=270)
+    
+
     #mapa2.place_forget()
 marco = Canvas(game, width=820, height=29000, bg="light blue")
 marco.pack_forget()
@@ -79,27 +89,79 @@ def moveCarroRecto(keys):
         marco.after(1, marco.move(jeep, 3, 0))
     # condicional para que cuando se presiona la tecla b el carro arranque
     elif keys.char=="w":
+        #LABELS QUE CONTIENEN LAS VARIABLES DE GASOLINA SE DEFINEN CON SU COLOR Y BACKGROUND
+        kilometraje= Label(marco, text="fuel",fg="gold", bg="black", font="Times 16 bold")
+        kilometraje.place(x=2,y=70)
 
+        #como tkinter necesita un tipo de variable diferente estas se definen como intvar stringvar 
+        fuel=tkinter.IntVar()
+        gasoline= Label(marco, textvariable=fuel,fg="gold", bg="black", font="Times 16 bold")
+        gasoline.place(x=2,y=100)
+        gasolinaMermar=25100
+
+        vel=tkinter.IntVar()
+        velocidad= Label(marco, textvariable=vel,fg="gold", bg="black", font="Times 16 bold")
+        velocidad.place(x=2,y=200)
+        
+        kilometraje= Label(marco, text="km/h",fg="gold", bg="black", font="Times 16 bold")
+        kilometraje.place(x=2,y=170)
+        global km 
+        km=0 
         while True:
+
             colisiones()
-          
             manchasAceites2()
 
             enemigosApariciones2()
+
+            bidonGasolineRecta()
 
             enemigosSiguen2()
 
             enemigoMueve2()
             
-            checkColide()
-                  
+            fuel.set(gasolinaMermar)
+            gasolinaMermar-=10
+
+            vel.set(km)
+
+            if km <= 100:
+                km+=int(0.1)
+                
+            elif km ==100:
+                km=100
+            
+
+
+          
+            #colisiones 
+            elif marco.coords(mapaPrincipal)[1] < 1000 :
+                if marco.coords(jeep)[0] > 509:
+                    km=0
+                    gasolinaMermar=gasolinaMermar-20
+                    animacionMapaRight()
+                elif marco.coords(jeep)[0] < 275.0:
+                    km=0
+                    gasolinaMermar=gasolinaMermar-20
+                    animacionMapaLeft()
+
+            elif gasolinaMermar==0:
+                break
+            
+            elif 10 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
+                gasolinaMermar=gasolinaMermar+100
+            
+            
+            elif marco.coords(mapaPrincipal)[1]==-10:
+                break     
             marco.after(4,marco.move(mapaPrincipal,0,10))                
             marco.after(4,marco.move(petrol,0,10))
             marco.after(4,marco.move(enemyState,0,10))
             marco.after(4,marco.move(enemyState2,0,10))
             marco.after(4,marco.move(enemyFoll,0,10))
             marco.after(4,marco.move(enemyMov,0,10))
-      
+            marco.after(5,marco.move(bidon,0,10))
+            
             game.update()
 
 # funcion para los movimientos del carro del mapa 1
@@ -128,16 +190,29 @@ def moveCarroCurva(tecla):
         valor4=459
         #print(box)
         #global fuel
+        kilometraje= Label(marco, text="gasolina",fg="gold", bg="black", font="Times 16 bold")
+        kilometraje.place(x=2,y=70)
+        
         fuel=tkinter.IntVar()
-        gasoline= Label(marco, textvariable=fuel)
-        gasoline.place(x=100,y=0)
-        gasolinaMermar=25200        
+        gasoline= Label(marco, textvariable=fuel,fg="gold", bg="black", font="Times 16 bold")
+        gasoline.place(x=2,y=100)
+        gasolinaMermar=25100
+
+        vel=tkinter.IntVar()
+        velocidad= Label(marco, textvariable=vel,fg="gold", bg="black", font="Times 16 bold")
+        velocidad.place(x=2,y=200)
+        
+        kilometraje= Label(marco, text="km/h",fg="gold", bg="black", font="Times 16 bold")
+        kilometraje.place(x=2,y=170)
+        km=25100        
         while True:
          
             colisiones()
       
             manchasAceites()
 
+            bidonGasoline()
+    
             enemigosApariciones()
 
             enemigosSiguen()
@@ -151,24 +226,31 @@ def moveCarroCurva(tecla):
             if marco.coords(mapaPrincipal)[1] < -26450:
                 
                 if marco.coords(jeep)[0] > 455:
+                    gasolinaMermar=gasolinaMermar-20
                     
                     animacionMapaRight()
             
                 
                 elif marco.coords(jeep)[0] < 245.0:
+                    gasolinaMermar=gasolinaMermar-20
                     animacionMapaLeft()
 
             elif gasolinaMermar==0:
-                break 
+         
+                break
+            
+            elif 10 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
+                gasolinaMermar=gasolinaMermar+100
                  
                 
             # colision para la primer curva
             elif marco.coords(mapaPrincipal)[1] >= -26450 and marco.coords(mapaPrincipal)[1] < -25950 :
                 
-                if marco.coords(jeep)[0] < valor1: 
-                    
+                if marco.coords(jeep)[0] < valor1:
+                    gasolinaMermar=gasolinaMermar-20
                     animacionMapaLeft()  
                 elif marco.coords(jeep)[0] > valor4:
+                    gasolinaMermar=gasolinaMermar-20
                     animacionMapaRight()
                     
                         
@@ -179,21 +261,24 @@ def moveCarroCurva(tecla):
                     valor4=valor4+4
             # tercera colision linea recta
             elif marco.coords(mapaPrincipal)[1] >= -25950 and marco.coords(mapaPrincipal)[1] < -17840:
-                if marco.coords(jeep)[0] > 624: 
+                if marco.coords(jeep)[0] > 624:
+                    gasolinaMermar=gasolinaMermar-20
                     animacionMapaRight()
                     
                 elif marco.coords(jeep)[0] < 415.0:
-                    
+                    gasolinaMermar=gasolinaMermar-20
                     animacionMapaLeft()
                         
             #colision  de segunda curva
                         
             #si las coordenadas del mapa son mayores a ... y menores a ... de esta forma indica la pos para las colisiones
             elif marco.coords(mapaPrincipal)[1] >= -17840 and marco.coords(mapaPrincipal)[1] < -17255:
-                if marco.coords(jeep)[0] > valor2: 
+                if marco.coords(jeep)[0] > valor2:
+                    gasolinaMermar=gasolinaMermar-20
                     animacionMapaRight()
                         
                 elif marco.coords(jeep)[0] < valor3:
+                    gasolinaMermar=gasolinaMermar-20
                     animacionMapaLeft()
                         
                 else:
@@ -205,13 +290,15 @@ def moveCarroCurva(tecla):
                 # colision derecha carro
                 
                 if marco.coords(jeep)[0] > 440:
+                    gasolinaMermar=gasolinaMermar-20
                     animacionMapaRight()
                         
        
                 elif marco.coords(jeep)[0] < 204.0:
+                    gasolinaMermar=gasolinaMermar-20
                     animacionMapaLeft()
 
-            elif marco.coords(mapaPrincipal)[1]==-100:
+            elif marco.coords(mapaPrincipal)[1]==-10:
                 break
             
             
@@ -221,19 +308,17 @@ def moveCarroCurva(tecla):
             marco.after(5,marco.move(enemyState2,0,10))
             marco.after(5,marco.move(enemyFoll,0,10))
             marco.after(5,marco.move(enemyMov,0,10))
+            marco.after(5,marco.move(bidon,0,10))
       
             game.update()
 
 
 #COLISION MAPA SIN CURVAS
-def checkColide():
-    if marco.coords(mapaPrincipal)[1] < 1000 :
-        if marco.coords(jeep)[0] > 509:
-            animacionMapaRight()
-        elif marco.coords(jeep)[0] < 275.0:
-            animacionMapaLeft()
+
+    
             
-def colisiones():   
+def colisiones():
+    global box
     box =marco.bbox(jeep)
     if 2 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
             # para saber que animacion debe realizar si la de desviarse a la izquierda o derecha
@@ -287,6 +372,9 @@ def colisiones():
             animacionRight()
         else:
             animacionLeft()
+
+   
+        
             
 def animacionLeft():
     marco.itemconfigure(jeep, state='hidden')
@@ -352,6 +440,29 @@ def animacionMapaRight():
 
 #-------------------------------------------------------------#-----------------------------------------------------------
 ##FUNCIONAMIENTO PARA MAPA CON CURVAS
+
+def bidonGasolineRecta():
+    numerosAleatoriosRecta()
+    numerosAleatoriosGasolina()
+    if marco.coords(mapaPrincipal)[1] == -15800:
+        if numG==2:
+            marco.coords(bidon,num3, 0)
+    elif marco.coords(mapaPrincipal)[1]==-25300:
+        if numG==1:
+            marco.coords(bidon,num3,0)
+
+def bidonGasoline():
+    numerosAleatorios()
+    numerosAleatoriosGasolina()
+    if marco.coords(mapaPrincipal)[1] == -15800:
+        if numG==2:
+            marco.coords(bidon,num1, 0)
+    elif marco.coords(mapaPrincipal)[1]==-25300:
+        if numG==1:
+            marco.coords(bidon,num2,0)
+    
+        
+    
 def enemigoMueve():
     numerosAleatorios()
     if marco.coords(mapaPrincipal)[1] == -19700:
@@ -831,6 +942,7 @@ enemigoFollow2= PhotoImage(file="enemyFollow_2.png")
 enemigoMove= PhotoImage(file="enemyMove.png")
 enemigoMove2= PhotoImage(file="enemyMove_2.png")
 
+gasol=PhotoImage(file="fuelbid.png")
 #explosiones animacion
 exp1 = PhotoImage(file="explosion1.png")
 exp2 = PhotoImage(file="explosion2.png")
@@ -869,6 +981,13 @@ def numerosAleatorios():
         num1=random.randrange(280,410,20)   
         global num2
         num2=random.randrange(420,608,20)
+
+def numerosAleatoriosGasolina():
+    for a in range(1):
+        global numG
+        numG=random.randrange(1,3,1)   
+     
+ 
  
 
   
@@ -925,19 +1044,15 @@ def empezar():
     enemyMov2= marco.create_image(-40, 0, image=enemigoMove2, anchor=NW)
     #aparicion1
 
+    global bidon
+    bidon=marco.create_image(-40,0, image=gasol,anchor=NW)
+
     global jeep
     jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
 
     
-    nombre=Label(marco, textvariable=player)
-    nombre.place(x=100,y=0)
-    
-    
-    
-
-
-    
-
+    nombre=Label(marco, textvariable=player,bg="black", fg="gold", font="Times 22 bold",)
+    nombre.place(x=2,y=0)
     
     #miniCuper = marco.create_image(0, 525, image=carroMini, anchor=NW) 
     #aceite = PhotoImage(file="aceite.png")
@@ -1000,10 +1115,15 @@ def nivel2():
     global enemyMov2
     enemyMov2= marco.create_image(-40, 0, image=enemigoMove2, anchor=NW)
     #aparicion1
-
+    global bidon
+    bidon=marco.create_image(-40,0, image=gasol,anchor=NW)
+    
     global jeep
     jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
-
+    
+    nombre=Label(marco, textvariable=player,bg="black", fg="gold", font="Times 22 bold",)
+    nombre.place(x=2,y=0)
+    
     marco.bind("<KeyPress>", moveCarroRecto)
     marco.focus_set()
     game.mainloop()
@@ -1059,10 +1179,14 @@ def nivel3():
     global enemyMov2
     enemyMov2= marco.create_image(-40, 0, image=enemigoMove2, anchor=NW)
     #aparicion1
-
+    global bidon
+    bidon=marco.create_image(-40,0, image=gasol,anchor=NW)
     global jeep
     jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
 
+    #nombre del usuario
+    nombre=Label(marco, textvariable=player,bg="black", fg="gold", font="Times 22 bold",)
+    nombre.place(x=2,y=0)
     marco.bind("<KeyPress>", moveCarroRecto)
     marco.focus_set()
     game.mainloop()
@@ -1118,10 +1242,14 @@ def nivel4():
     global enemyMov2
     enemyMov2= marco.create_image(-40, 0, image=enemigoMove2, anchor=NW)
     #aparicion1
-
+    global bidon
+    bidon=marco.create_image(-40,0, image=gasol,anchor=NW)
     global jeep
     jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
 
+    nombre=Label(marco, textvariable=player,bg="black", fg="gold", font="Times 22 bold",)
+    nombre.place(x=2,y=0)
+    
     marco.bind("<KeyPress>", moveCarroRecto)
     marco.focus_set()
     game.mainloop()
@@ -1177,9 +1305,13 @@ def nivel5():
     global enemyMov2
     enemyMov2= marco.create_image(-40, 0, image=enemigoMove2, anchor=NW)
     #aparicion1
-
+    global bidon
+    bidon=marco.create_image(-40,0, image=gasol,anchor=NW)
     global jeep
     jeep = marco.create_image(365, 480, image=carroPrincipal, anchor=NW)
+
+    nombre=Label(marco, textvariable=player,bg="black", fg="gold", font="Times 22 bold",)
+    nombre.place(x=2,y=0)
 
     marco.bind("<KeyPress>", moveCarroCurva)
     marco.focus_set()
@@ -1198,8 +1330,8 @@ player.set("")
 
 # inicia el segundo menu para ya empezar el juego
 def iniciar():
+    raiz.geometry("720x480")
     #global player
-    
     textoJugador = ttk.Entry(raiz, textvariable=player, width=30)
     #global player
     #player=textoJugador.get()
@@ -1219,14 +1351,15 @@ def iniciar():
     #mapa2
     mapa2.place(x=320,y=300)
     play.place_forget()
+    tutorial.place_forget()
     volver.place_forget()
 
     # cierro la ventana pasada la del menu para abrir la nueva
 
 #boton=photoImage(file="")
-play = ttk.Button(raiz, text="JUGAR", command=iniciar)
+play = tkinter.Button(raiz, image=start, command=iniciar,bg="NavajoWhite2")
 # boton para abrir el tutorial
-tutorial = ttk.Button(raiz, text="TUTORIAL", command=abrirTutorial)
+tutorial = tkinter.Button(raiz, image=tutoB, command=abrirTutorial,bg="NavajoWhite2")
 volver = ttk.Button(raiz, text="REGRESAR", command=volver)
 
 
@@ -1234,9 +1367,11 @@ volver = ttk.Button(raiz, text="REGRESAR", command=volver)
 # widgets
 menuJuego.place(x=-2, y=-2)
 tuto.place_forget()
-volver.place(x=320, y=450)
-tutorial.place(x=320, y=400)
-play.place(x=320, y=350)
+
+
+
+tutorial.place(x=350, y=270)
+play.place(x=200, y=270)
 
 # BOTONES PARA LA FUNCION INICIAR
 
@@ -1250,6 +1385,8 @@ iniciarGame = ttk.Button(raiz, text="MAPA1", command=empezar)
 mapa2=ttk.Button(raiz, text="MAPA2",command=nivel2)
 mapa5=ttk.Button(raiz,text="MAPA5",command=nivel5)
 
+
+volver.place_forget()
 mapa2.place_forget()
 mapa5.place_forget()
 iniciarGame.place_forget()
