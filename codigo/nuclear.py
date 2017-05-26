@@ -76,6 +76,8 @@ def volver():
 marco = Canvas(game, width=820, height=29000, bg="light blue")
 marco.pack_forget()
 
+
+#funciones para los movimientos de los mapas 
 def moveCarroRecto(keys):
     global posicionMap
     global posCarro
@@ -96,7 +98,7 @@ def moveCarroRecto(keys):
          #LABELS QUE CONTIENEN LAS VARIABLES DE GASOLINA SE DEFINEN CON SU COLOR Y BACKGROUND
         labelsOb()
         global gasolinaMermar
-        gasolinaMermar=25100
+        gasolinaMermar=25800
         global km 
         km=0 
         while True:
@@ -135,18 +137,19 @@ def moveCarroRecto(keys):
                 km=100
 
             elif gasolinaMermar==0:
+                empezar()
                 break
             
             elif 10 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
                 gasolinaMermar=gasolinaMermar+100
             
             
-            elif marco.coords(mapaPrincipal)[1]==-10:
-                marco.delete(ALL)
+            elif marco.coords(mapaPrincipal)[1]==-26000:
+                marco.after(10000,marco.delete(ALL))
                 nivel3()
                 break
 
-            #print(marco.coords(mapaPrincipal)[1])
+            print(marco.coords(mapaPrincipal)[1])
             marco.after(veloz,marco.move(mapaPrincipal,0,10))                
             marco.after(veloz,marco.move(petrol,0,10))
             marco.after(veloz,marco.move(enemyState,0,10))
@@ -178,7 +181,7 @@ def moveCarroRecto2(keyss):
         #LABELS QUE CONTIENEN LAS VARIABLES DE GASOLINA SE DEFINEN CON SU COLOR Y BACKGROUND
         labelsOb()
         global gasolinaMermar
-        gasolinaMermar=25100
+        gasolinaMermar=25800
         global km 
         km=0 
         while True:
@@ -216,6 +219,7 @@ def moveCarroRecto2(keyss):
                 km=100
 
             elif gasolinaMermar==0:
+                empezar()
                 break
             
             elif 10 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
@@ -258,7 +262,7 @@ def moveCarroRecto3(keyse):
         #LABELS QUE CONTIENEN LAS VARIABLES DE GASOLINA SE DEFINEN CON SU COLOR Y BACKGROUND
         labelsOb()
         global gasolinaMermar
-        gasolinaMermar=25100
+        gasolinaMermar=25800
         global km 
         km=0 
         while True:
@@ -297,6 +301,7 @@ def moveCarroRecto3(keyse):
                 km=100
 
             elif gasolinaMermar==0:
+                empezar()
                 break
             
             elif 10 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
@@ -344,7 +349,7 @@ def moveCarroCurva(tecla):
         valor4=459
         labelsOb()
         global gasolinaMermar
-        gasolinaMermar=25100
+        gasolinaMermar=25800
         global km 
         km=0 
         while True:
@@ -453,6 +458,7 @@ def moveCarroCurva(tecla):
                 km=100
 
             elif gasolinaMermar==0:
+                empezar()
                 break
             
             elif 10 in marco.find_overlapping(box[0],box[1],box[2],box[3]):
@@ -501,7 +507,7 @@ def moveCarroCurva2(teclaa):
         valor4=459
         labelsOb()
         global gasolinaMermar
-        gasolinaMermar=25100
+        gasolinaMermar=25800
         global km 
         km=0 
         while True:
@@ -617,6 +623,7 @@ def moveCarroCurva2(teclaa):
             
             
             elif marco.coords(mapaPrincipal)[1]==-10:
+                empezar()
                 break
 
             #print(marco.coords(mapaPrincipal)[1])
@@ -1257,7 +1264,9 @@ def manchasAceites2():
         marco.coords(petrol,num3,0)
 
 #FIN MAPAS LINEA RECTA
+#definicion de imagenes en el canvas
 
+#-----------------------------------------#--------------------------------
         
 mapa = PhotoImage(file="mapWorld.png")
 #se crea la imagen dentro del canvas como ya hay dos imagene lo que hace es sobre poner una encima de la otra
@@ -1309,16 +1318,18 @@ choque4_1= PhotoImage(file="crash4_1.png")
 choque4_2= PhotoImage(file="crash4_2.png")
 choqueRight=[choque3,choque4,choque4_1,choque4_2]
 
+#--------------------------------------------------#------------------------
 def numerosAleatoriosGasolina():
     for a in range(1):
         global numG
         numG=random.randrange(1,3,1)   
         
-
+#funcion para generar numeros aleatorios, en este caso
+#es para generar el numero aleatorio para la posicion en x
 def numerosAleatoriosRecta():
     for a in range(1):
         global num3
-        num3=random.randrange(260,509,30)   
+        num3=random.randrange(273,509,30)   
         
 
 def numerosAleatorios():
@@ -1328,6 +1339,8 @@ def numerosAleatorios():
         global num2
         num2=random.randrange(420,608,20)
 
+#------------------------------------------------------#---------------
+#funciones para iniciar los mapas
 def empezar():
     game.geometry("820x580")
     # de iconify para maximixar la ventana cuando ya presione el boton
@@ -1656,12 +1669,13 @@ def nivel5():
     game.mainloop()
         
 
-
-
+#---------------------------------#--------------------------------------
+    
+#variable para el nombre
 player = tkinter.StringVar()
 player.set("")
 
-
+#---------------------------------#_--------------------------
 # inicia el segundo menu para ya empezar el juego
 def iniciar():
     #global player
@@ -1689,14 +1703,15 @@ def iniciar():
 
     # cierro la ventana pasada la del menu para abrir la nueva
 
-
+#botones del juego
 play = tkinter.Button(raiz, image=start, command=iniciar,bg="NavajoWhite2")
 
 # boton para abrir el tutorial
 tutorial = tkinter.Button(raiz, image=tutoB, command=abrirTutorial,bg="NavajoWhite2")
 volver = ttk.Button(raiz, text="REGRESAR", command=volver)
 
-
+#--------------------------------------#------------------------------
+#posicionamiento de los botones
 
 # widgets
 menuJuego.place(x=-2, y=-2)

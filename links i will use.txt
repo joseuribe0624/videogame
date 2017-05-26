@@ -1,7 +1,0 @@
-https://www.pygame.org/dashboard
-https://www.pygame.org/docs/
-https://www.pygame.org/news
-https://docs.python.org/3/library/tk.html
-https://docs.python.org/3/library/tkinter.html#module-tkinter
-https://docs.python.org/3/library/tkinter.tix.html#module-tkinter.tix
-pagina 81
