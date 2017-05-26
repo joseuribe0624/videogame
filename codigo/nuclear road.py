@@ -1,11 +1,29 @@
+
+"""
+AUTOR
+Jose David Gutierrez Uribe
+
+Pontificia Universidad Javeriana Cali
+
+Introduccion a la Programacion
+
+
+NUCLEAR ROAD
+
+"""
+
+
 #height altura
 #widht=ancho
 #m demora 8,06 segundos a la velocidad que esta en acabarse la pantalla
+
+#libreria tkinter pa la parte grafica
 from tkinter import *
 import tkinter
 from tkinter import font
 from tkinter import *
 from tkinter import ttk
+#random para generar los numeros aleatorios
 import random
 import time
 game = Tk()
@@ -151,6 +169,8 @@ def moveCarroRecto(keys):
             marco.after(veloz,marco.move(bidon,0,10))
             
             game.update()
+
+
 
 # funcion para los movimientos del carro del mapa 1
 def moveCarroCurva(tecla):
